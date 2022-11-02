@@ -1,7 +1,7 @@
-function pred = rbf(train_pos, train_val, eval_pos, rbf_func)
+function func = rbf(train_pos, train_val, rbf_func)
     A = rbf_func(distanceMatrix(train_pos, train_pos));
+    disp(A)
     c = A \ train_val;
     
-    A_eval = rbf_func(distanceMatrix(train_pos, eval_pos));
-    pred = A_eval * c;
+    func = @(eval_pos) rbf_func(distanceMatrix(train_pos, eval_pos)) * c;
 end

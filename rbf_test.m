@@ -18,7 +18,8 @@ f_data = testFunction(data(:, 1), data(:, 2));
 f_test = testFunction(x_test, y_test);
 data_test = horzcat(x_test, y_test);
 
-pred = rbf(data, f_data, data_test, rbf_func1);
+eval_func = rbf(data, f_data, rbf_func1);
+pred = eval_func(data_test);
 
 surf(test_X, test_Y, reshape(pred, [N_test N_test]))
 figure;
