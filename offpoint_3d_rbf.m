@@ -1,8 +1,8 @@
-N = 5000;
+N = 1000;
 delta = 1e-2;
 sigma = 1;
 
-epsilon = 2;
+epsilon = 1;
 
 %rbf_func = @(r) exp(-((epsilon*r).^2));
 rbf_func = @(r) (1 - r ./ epsilon).^2 .* (r < epsilon) .* (4 * r / epsilon + 2);
@@ -38,10 +38,10 @@ train_data_w = vertcat(zeros(size(sphere,1),1), sigma.*ones(size(delta_pos,1),1)
 figure;
 %scatter3(sphere(:,1), sphere(:,2), sphere(:,3))
 disp('Starting rbf interpolation')
-potential = rbf(train_data, train_data_w, rbf_func);
+potential = rbfPU(train_data, train_data_w, rbf_func, 8, 0.1);
 disp('Finished interpolation construction')
 
-[x,y,z] = meshgrid([min(min(sphere)):0.05:max(max(sphere))]);
+[x,y,z] = meshgrid([min(min(sphere)):0.01:max(max(sphere))]);
 V = potential(horzcat(flatten(x), flatten(y), flatten(z)));
 V = reshape(V, size(x));
 

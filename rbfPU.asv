@@ -12,12 +12,14 @@ function func = rbfPU(train_pos, train_val, rbf_func, N, rho)
             x_ = x(k,:);
             
             active_patches = norm2(patches - x_) <= rho;
+            disp()
             active_patches_idx = find(active_patches);
             if(isempty(active_patches_idx))
                 v(k) = nan;
             else
-                w = w_func(norm2(patches(active_patches, :) - x_));
+                w = w_func(norm2(patches(active_patches) - x_));
                 w = w ./ sum(w); % Normalize w
+                
                 v(k) = 0;
                 for jk=1:length(active_patches_idx)
                     j = active_patches_idx(jk);
