@@ -6,7 +6,7 @@ function X = SpherePoints(N)
 
 % N: number of points requested (input)
 % X: generated points of size (N x 3)
-global SphereTypePoints
+SphereTypePoints = 'equalpart';
 switch SphereTypePoints
     case 'equalpart'
         h = -1+ (2.*((1:N)-1)./(N-1));

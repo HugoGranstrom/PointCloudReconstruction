@@ -2,10 +2,9 @@ N = 5000;
 delta = 1e-2;
 sigma = 1;
 
-epsilon = 2;
+epsilon = 1e-3;
 
-%rbf_func = @(r) exp(-((epsilon*r).^2));
-rbf_func = @(r) (1 - r ./ epsilon).^2 .* (r < epsilon) .* (4 * r / epsilon + 2);
+rbf_func = @(r) exp(-((epsilon*r).^2));
 
 %phi = 2*pi*linspace(0,1 - 1/N,N)';
 %theta = pi*linspace(1/N,1 - 1/N,N)';
@@ -19,8 +18,8 @@ rbf_func = @(r) (1 - r ./ epsilon).^2 .* (r < epsilon) .* (4 * r / epsilon + 2);
 %sphere_z = cos(theta);
 
 %sphere = horzcat(sphere_x, sphere_y, sphere_z);
-%sphere = SpherePoints(N);
-%pc = pointCloud(sphere);
+sphere = SpherePoints(N);
+pc = pointCloud(sphere);
 load homer.mat
 sphere = ptcloud;
 %normals = pcnormals(pc)
@@ -37,11 +36,10 @@ train_data_w = vertcat(zeros(size(sphere,1),1), sigma.*ones(size(delta_pos,1),1)
 
 figure;
 %scatter3(sphere(:,1), sphere(:,2), sphere(:,3))
-disp('Starting rbf interpolation')
-potential = rbf(train_data, train_data_w, rbf_func);
-disp('Finished interpolation construction')
 
-[x,y,z] = meshgrid([min(min(sphere)):0.05:max(max(sphere))]);
+potential = rbf(train_data, train_data_w, rbf_func);
+
+[x,y,z] = meshgrid([min(sphere):0.05:max(sphere)]);
 V = potential(horzcat(flatten(x), flatten(y), flatten(z)));
 V = reshape(V, size(x));
 
