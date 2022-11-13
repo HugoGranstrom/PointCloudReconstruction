@@ -9,25 +9,27 @@ function func = rbfPU(train_pos, train_val, rbf_func, N, rho)
     function v = evalRbfPU(x)
         w_func = @(r) (1 - r ./ rho).^2 .* (r < rho) .* (4 * r / rho + 2);
         v = zeros(size(x,1),1);
-        dist = distanceMatrix(patches, x); % shape (n_x, n_patches) so each row is for one x-point
-        isClose = dist <= rho;
-        wAll = w_func(dist);
-        wAll = wAll ./ sum(wAll, 2);
+        tree = KDTreeSearcher(x);
+        tic
+        points_in_patches = rangesearch(tree,patches,rho);
+        toc
+        w = zeros(size(x,1),1);
+        y = zeros(size(x,1),1);
+        is_set = false(size(x,1),1);
+        tic
         for j=1:size(patches, 1)
-            active_points = isClose(:,j);
-            % sum(active_points) / length(active_points)
-            w = wAll(active_points, j); %w_func(dist(active_points,j));
-            x_ = x(active_points,:);
+            is_set(points_in_patches{j}) = 1;
+            points = x(points_in_patches{j},:);
+            dist = norm2(patches(j,:) - points);
+            w_val = w_func(dist);
+            w(points_in_patches{j}) = w(points_in_patches{j}) + w_val;
             s_j = s_js{j};
-            y_j = s_j(x_); % (n_x, 1)
-            v(active_points) = v(active_points) + y_j .* w;
+            y_j = s_j(points); % (n_x, 1)
+            y(points_in_patches{j}) = y(points_in_patches{j}) + w_val .* y_j;
         end
-        % set empty sets to nan;
-        isnan = ~sum(isClose, 2);
-        v(isnan) = nan;
-
-
-
+        toc
+        v(~is_set) = NaN;
+        v(is_set) = y(is_set) ./ w(is_set);
     end
     func = @evalRbfPU;
 end
