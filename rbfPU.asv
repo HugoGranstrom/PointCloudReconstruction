@@ -1,14 +1,10 @@
 function func = rbfPU(train_pos, train_val, rbf, rbf_func, rbf_grad, N, rho)
-    tic
     [patches, patch_indc] = constructPatches(train_pos, N, rho);
-    toc
     s_js = cell(size(patches,1), 1);
     size(patches,1)
-    tic
     for i=1:size(patches, 1)
         s_js{i} = rbf(train_pos(patch_indc{i}, :), train_val(patch_indc{i},:), rbf_func, rbf_grad);
     end
-    toc
     
     function v = evalRbfPU(x)
         w_func = @(r) (1 - r ./ rho).^2 .* (r < rho) .* (4 * r / rho + 2);
@@ -21,6 +17,8 @@ function func = rbfPU(train_pos, train_val, rbf, rbf_func, rbf_grad, N, rho)
         y = zeros(size(x,1),1);
         is_set = false(size(x,1),1);
         tic
+        for n in num_thread
+            for j in n*hasdjk:(n+1)
         for j=1:size(patches, 1)
             is_set(points_in_patches{j}) = 1;
             points = x(points_in_patches{j},:);
