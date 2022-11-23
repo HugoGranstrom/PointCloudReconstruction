@@ -13,8 +13,8 @@ function func = rbfPU(train_pos, train_val, rbf, rbf_func, rbf_grad, N, rho)
     function v = evalRbfPU(x)
         w_func = @(r) (1 - r ./ rho).^2 .* (r < rho) .* (4 * r / rho + 2);
         v = zeros(size(x,1),1);
-        tree = KDTreeSearcher(x);
         tic
+        tree = KDTreeSearcher(x);
         points_in_patches = rangesearch(tree,patches,rho);
         toc
         w = zeros(size(x,1),1);

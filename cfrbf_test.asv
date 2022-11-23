@@ -25,6 +25,8 @@ rbfHessian =  @(x) (supportHessianRBF(x, epsilon, dr));
 % rbfHessian_f = matlabFunction(hessian(func), 'file', 'rbfhessian_file.m');
 % rbfHessian = @(x) rbfHessianHandler(x, rbfHessian_f) .* reshape((norm2(x) < epsilon), 1, 1, []);
 
+N = 100;
+
 %points = 2.*SpherePoints(N);
 %normals = points;
 load homer.mat
@@ -50,14 +52,9 @@ points = ptcloud;
 % %scatter3(points(:,1), points(:,2), points(:,3))
 
 tic
-N = 300;
-min_x = min(min(points(:,1)));
-min_y = min(min(points(:,2)));
-max_x = max(max(points(:,1)));
-max_y = max(max(points(:,2)));
-max_z = max(max(points(:,3)));
-min_z = min(min(points(:,3)));
-[x, y, z] = meshgrid(linspace(min_x, max_x, N), linspace(min_y, max_y, N), linspace(min_z, max_z, N));
+
+axis
+[x,y,z] = meshgrid(min(points,[],'all'):0.005:max(points,[],'all')
 %potential = cfrbf(points, normals, rbfgrad, rbfHessian);
 
 num_patches = size(ptcloud,1)/10;
