@@ -5,7 +5,7 @@ function func = rbfPU(train_pos, train_val, rbf, rbf_func, rbf_grad, N, rho)
     s_js = cell(size(patches,1), 1);
     size(patches,1)
     tic
-    for i=1:size(patches, 1)
+    parfor i=1:size(patches, 1)
         s_js{i} = rbf(train_pos(patch_indc{i}, :), train_val(patch_indc{i},:), rbf_func, rbf_grad);
     end
     toc

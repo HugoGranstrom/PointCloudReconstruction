@@ -2,7 +2,7 @@ close all;
 epsilon = 1;
 
 %rbf = @(r) exp(-((epsilon .* r) .^ 2));
-%rbfgrad = @(x) -2.*epsilon.*epsilon.*x .* rbf(norm2(x));
+%rbfgrapd = @(x) -2.*epsilon.*epsilon.*x .* rbf(norm2(x));
 
 syms x y z;
 dr = 1e-5;
@@ -46,7 +46,7 @@ figure
 tic
 [x,y,z] = meshgrid(min(points,[],'all'):0.005:max(points,[],'all'));
 %potential = cfrbf(points, normals, rbfgrad, rbfHessian);
-potential = rbfPU(points, normals, @cfrbf, rbfHessian, rbfgrad, 8, 0.9/7);
+potential = rbfPU(points, normals, @cfrbf, rbfHessian, rbfgrad, 400, 0.05);
 V = potential(horzcat(flatten(x), flatten(y), flatten(z)));
 V = reshape(V, size(x));
 toc
