@@ -2,19 +2,28 @@ close all;
 epsilon = 1;
 
 %rbf = @(r) exp(-((epsilon .* r) .^ 2));
-%rbfgrapd = @(x) -2.*epsilon.*epsilon.*x .* rbf(norm2(x));
+%rbfgrad = @(x) -2.*epsilon.*epsilon.*x .* rbf(norm2(x));
+% rbfHessian = @(x) (gaussRbfHessian(x, epsilon));
 
-syms x y z;
 dr = 1e-5;
-r = sqrt(x*x + y*y + z*z + dr);
-%func = (1 - r ./ epsilon).^2 .* (4 * r / epsilon + 2);
-func = (1 - r ./ epsilon).^2;
-%func = exp(-((epsilon .* r) .^ 2));
-rbfgrad_f = matlabFunction(gradient(func), 'file', 'rbfgrad_file.m');
-rbfgrad = @(x) rbfgrad_file(x(:,1)', x(:,2)', x(:,3)')' .* (norm2(x) < epsilon);
 
-rbfHessian_f = matlabFunction(hessian(func), 'file', 'rbfhessian_file.m');
-rbfHessian = @(x) rbfHessianHandler(x, rbfHessian_f) .* reshape((norm2(x) < epsilon), 1, 1, []);
+sqrs = @(x) sqrt(dr + x(:,1).^2 + x(:,2).^2 + x(:,3).^2);
+
+rbfgrad = @(x) 2 .* x .* (1 - epsilon./sqrs(x))./(epsilon.^2);
+rbfHessian =  @(x) (supportHessianRBF(x, epsilon, dr));
+
+
+% syms x y z;
+% dr = 1e-5;
+% r = sqrt(x*x + y*y + z*z + dr);
+% %func = (1 - r ./ epsilon).^2 .* (4 * r / epsilon + 2);
+% func = (1 - r ./ epsilon).^2;
+% %func = exp(-((epsilon .* r) .^ 2));
+% rbfgrad_f = matlabFunction(gradient(func), 'file', 'rbfgrad_file.m');
+% rbfgrad = @(x) rbfgrad_file(x(:,1)', x(:,2)', x(:,3)')' .* (norm2(x) < epsilon);
+% 
+% rbfHessian_f = matlabFunction(hessian(func), 'file', 'rbfhessian_file.m');
+% rbfHessian = @(x) rbfHessianHandler(x, rbfHessian_f) .* reshape((norm2(x) < epsilon), 1, 1, []);
 
 N = 100;
 
@@ -42,14 +51,14 @@ points = ptcloud;
 % quiver3(points_test(:,1), points_test(:,2), points_test(:,3), p_test(:,1), p_test(:,2), p_test(:,3))
 % %scatter3(points(:,1), points(:,2), points(:,3))
 
-figure
 tic
-[x,y,z] = meshgrid(min(points,[],'all'):0.005:max(points,[],'all'));
+[x,y,z] = meshgrid(min(points,[],'all'):0.003:max(points,[],'all'));
 %potential = cfrbf(points, normals, rbfgrad, rbfHessian);
 potential = rbfPU(points, normals, @cfrbf, rbfHessian, rbfgrad, 400, 0.05);
 V = potential(horzcat(flatten(x), flatten(y), flatten(z)));
 V = reshape(V, size(x));
 toc
+figure
 hold on
 s = isosurface(x,y,z,V, 0);
 p = patch(s);
@@ -90,6 +99,30 @@ function H = rbfHessianHandler(x, handle)
     for i=1:size(x,1)
         H(:,:,i) = handle(x(i,1), x(i,2), x(i,3));
     end
+end
+
+function H = supportHessianRBF(x, epsilon, m_esp)
+    H = zeros([3 3 size(x, 1)]);
+    sqrs = x(:,1).^2 + x(:,2).^2 + x(:,3).^2 + m_esp;
+    sqrs_rt = sqrt(sqrs);
+
+    term = 2.*(1 - sqrs_rt./epsilon)./(sqrs_rt.*epsilon);
+    term_2 = term./sqrs;
+
+    H(1, 1, :) = (2.*x(:,1).^2) ./ (epsilon^2 .* sqrs) + x(:,1).^2 .* term_2 - term;
+    H(2, 2, :) = (2.*x(:,2).^2) ./ (epsilon^2 .* sqrs) + x(:,2).^2 .* term_2 - term;
+    H(3, 3, :) = (2.*x(:,3).^2) ./ (epsilon^2 .* sqrs) + x(:,3).^2 .* term_2 - term;
+
+
+    H(1, 2, :) = x(:,1).*x(:,2) .*(2 ./ (epsilon^2 .* sqrs) + term_2); 
+    H(2, 1, :) = H(1, 2, :);
+
+    H(1, 3, :) = x(:,1).*x(:,3) .*(2 ./ (epsilon^2 .* sqrs) + term_2); 
+    H(3, 1, :) = H(1, 3, :);
+    
+
+    H(2, 3, :) = x(:,2).*x(:,3) .*(2 ./ (epsilon^2 .* sqrs) + term_2); 
+    H(3, 2, :) = H(2, 3, :);
 end
 
 
