@@ -1,6 +1,6 @@
-function func = rbfPU(train_pos, train_val, rbf, rbf_func, rbf_grad, N, rho)
+function func = rbfPU(train_pos, train_val, rbf, rbf_func, rbf_grad, N)
     tic
-    [patches, patch_indc] = constructPatches(train_pos, N, rho);
+    [patches, patch_indc, rho] = constructPatches(train_pos, N);
     toc
     s_js = cell(size(patches,1), 1);
     size(patches,1)

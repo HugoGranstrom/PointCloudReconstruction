@@ -7,9 +7,9 @@ epsilon = 1;
 
 dr = 1e-5;
 
-sqrs = @(x) sqrt(dr + x(:,1).^2 + x(:,2).^2 + x(:,3).^2);
+r = @(x) sqrt(dr + x(:,1).^2 + x(:,2).^2 + x(:,3).^2);
 
-rbfgrad = @(x) 2 .* x .* (1 - epsilon./sqrs(x))./(epsilon.^2);
+rbfgrad = @(x) -x .* 20 .*(1-r(x)).^3;
 rbfHessian =  @(x) (supportHessianRBF(x, epsilon, dr));
 
 
@@ -50,7 +50,7 @@ points = ptcloud;
 % %scatter3(points(:,1), points(:,2), points(:,3))
 
 tic
-N = 300;
+N = 100;
 min_x = min(min(points(:,1)));
 min_y = min(min(points(:,2)));
 max_x = max(max(points(:,1)));
@@ -64,9 +64,7 @@ num_patches = size(ptcloud,1)/10;
 
 p_dist = max(max(points) - min(points)) ./ (size(points,1) .^(1/3));
 
-rho = p_dist;
-
-potential = rbfPU(points, normals, @cfrbf, rbfHessian, rbfgrad, num_patches, rho);
+potential = rbfPU(points, normals, @cfrbf, rbfHessian, rbfgrad, num_patches);
 V = potential(horzcat(flatten(x), flatten(y), flatten(z)));
 V = reshape(V, size(x));
 toc
@@ -117,27 +115,24 @@ end
 
 function H = supportHessianRBF(x, epsilon, m_esp)
     H = zeros([3 3 size(x, 1)]);
-    sqrs = x(:,1).^2 + x(:,2).^2 + x(:,3).^2 + m_esp;
-    sqrs_rt = sqrt(sqrs);
+    r = sqrt(x(:,1).^2 + x(:,2).^2 + x(:,3).^2 + m_esp) ./ epsilon;
+    
+    dr = -20.*(1 - r).^3;
+    dr2 = 60*(1 - r).^2./r;
 
-    term = 2.*(1 - sqrs_rt./epsilon)./(sqrs_rt.*epsilon);
-    term_2 = term./sqrs;
-
-    H(1, 1, :) = (2.*x(:,1).^2) ./ (epsilon^2 .* sqrs) + x(:,1).^2 .* term_2 - term;
-    H(2, 2, :) = (2.*x(:,2).^2) ./ (epsilon^2 .* sqrs) + x(:,2).^2 .* term_2 - term;
-    H(3, 3, :) = (2.*x(:,3).^2) ./ (epsilon^2 .* sqrs) + x(:,3).^2 .* term_2 - term;
+    H(1, 1, :) = dr + x(:,1).^2 .* dr2;
+    H(2, 2, :) = dr + x(:,2).^2 .* dr2;
+    H(3, 3, :) = dr + x(:,3).^2 .* dr2;
 
 
-    H(1, 2, :) = x(:,1).*x(:,2) .*(2 ./ (epsilon^2 .* sqrs) + term_2); 
+    H(1, 2, :) = x(:,1).*x(:,2) .* dr2; 
     H(2, 1, :) = H(1, 2, :);
 
-    H(1, 3, :) = x(:,1).*x(:,3) .*(2 ./ (epsilon^2 .* sqrs) + term_2); 
+    H(1, 3, :) = x(:,1).*x(:,3) .* dr2; 
     H(3, 1, :) = H(1, 3, :);
     
 
-    H(2, 3, :) = x(:,2).*x(:,3) .*(2 ./ (epsilon^2 .* sqrs) + term_2); 
+    H(2, 3, :) = x(:,2).*x(:,3) .* dr2; 
     H(3, 2, :) = H(2, 3, :);
 end
-
-
 
