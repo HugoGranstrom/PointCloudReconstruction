@@ -42,10 +42,10 @@ figure;
 disp('Starting rbf interpolation')
 
 
-potential = rbfPU(train_data, train_data_w, rbf_func, 8, 0.9/7); % (k, 0.9 / (k-1))
+potential = rbfPU(train_data, train_data_w, @rbf, rbf_func, rbf_func, 400); % (k, 0.9 / (k-1))
 disp('Finished interpolation construction')
 
-[x,y,z] = meshgrid([min(min(sphere)):0.01:max(max(sphere))]);
+[x,y,z] = meshgrid([min(min(sphere)):0.003:max(max(sphere))]);
 tic
 V = potential(horzcat(flatten(x), flatten(y), flatten(z)));
 toc
