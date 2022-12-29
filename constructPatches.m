@@ -15,7 +15,7 @@ function [patches, indices_list, rho] = constructPatches(train_pos, N)
     grid = mex_pcCoarsenPoissonDisk(train_pos, N);
     [~, D] = knnsearch(grid, grid, 'K', 2);
     
-    rho = max(D, [], 'all') * 1.3
+    rho = max(D, [], 'all') * 1;
 
     
     real_index_list = [];

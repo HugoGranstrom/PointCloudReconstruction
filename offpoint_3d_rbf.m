@@ -3,10 +3,10 @@ N = 1000;
 delta = 1e-3;
 sigma = 1;
 
-epsilon = 0.5;
+epsilon = 1;
 
 %rbf_func = @(r) exp(-((epsilon*r).^2));
-rbf_func = @(r) (1 - r ./ epsilon).^2 .* (r < epsilon) .* (4 * r / epsilon + 2);
+rbf_func = @(r) (1 - r ./ epsilon).^4 .* (r < epsilon) .* (4 * r / epsilon + 1);
 
 %phi = 2*pi*linspace(0,1 - 1/N,N)';
 %theta = pi*linspace(1/N,1 - 1/N,N)';
@@ -24,6 +24,7 @@ rbf_func = @(r) (1 - r ./ epsilon).^2 .* (r < epsilon) .* (4 * r / epsilon + 2);
 %pc = pointCloud(sphere);
 load homer.mat
 sphere = ptcloud;
+%normals = nrml;
 %normals = pcnormals(pc)
 %err = mean(sum(abs(normals - sphere), 2))
 %quiver3(sphere_x, sphere_y, sphere_z, normals(:,1),normals(:,2),normals(:,3))
@@ -41,17 +42,23 @@ figure;
 %scatter3(sphere(:,1), sphere(:,2), sphere(:,3))
 disp('Starting rbf interpolation')
 
-
-potential = rbfPU(train_data, train_data_w, @rbf, rbf_func, rbf_func, 400); % (k, 0.9 / (k-1))
+tic
+%potential = rbfPU(train_data, train_data_w, @rbf, rbf_func, rbf_func, 450); % (k, 0.9 / (k-1))
+potential = rbf(train_data, train_data_w, rbf_func, rbf_func);
 disp('Finished interpolation construction')
 
-[x,y,z] = meshgrid([min(min(sphere)):0.003:max(max(sphere))]);
+%% 
+
+disp('Lets go!')
+[x,y,z] = meshgrid(linspace(min(min(sphere)), max(max(sphere)), 100));
 tic
 V = potential(horzcat(flatten(x), flatten(y), flatten(z)));
 toc
 
 V = reshape(V, size(x));
+disp('Done!')
 
+%% 
 
 
 s = isosurface(x,y,z,V, 0);
@@ -63,6 +70,8 @@ isonormals(x,y,z,V,p)
 set(p,'FaceColor',[0.5 1 0.5]);  
 set(p,'EdgeColor','none');
 camlight('right', 'infinite');
+%shading interp
+lighting gouraud 
 daspect([1 1 1]);
 view([90 0]);
 

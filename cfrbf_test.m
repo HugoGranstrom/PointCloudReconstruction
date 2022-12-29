@@ -5,7 +5,7 @@ epsilon = 1;
 %rbfgrad = @(x) -2.*epsilon.*epsilon.*x .* rbf(norm2(x));
 % rbfHessian = @(x) (gaussRbfHessian(x, epsilon));
 
-dr = 1e-5;
+dr = 1e-15;
 
 r = @(x) sqrt(dr + x(:,1).^2 + x(:,2).^2 + x(:,3).^2);
 
@@ -49,8 +49,13 @@ points = ptcloud;
 % quiver3(points_test(:,1), points_test(:,2), points_test(:,3), p_test(:,1), p_test(:,2), p_test(:,3))
 % %scatter3(points(:,1), points(:,2), points(:,3))
 
+num_patches = size(ptcloud,1)/10;
+%potential = rbfPU(points, normals, @cfrbf, rbfHessian, rbfgrad, num_patches);
+potential = cfrbf(points, normals, rbfHessian, rbfgrad);
+%% 
+
 tic
-N = 100;
+N = 200;
 min_x = min(min(points(:,1)));
 min_y = min(min(points(:,2)));
 max_x = max(max(points(:,1)));
@@ -60,12 +65,12 @@ min_z = min(min(points(:,3)));
 [x, y, z] = meshgrid(linspace(min_x, max_x, N), linspace(min_y, max_y, N), linspace(min_z, max_z, N));
 %potential = cfrbf(points, normals, rbfgrad, rbfHessian);
 
-num_patches = size(ptcloud,1)/10;
+
 
 p_dist = max(max(points) - min(points)) ./ (size(points,1) .^(1/3));
 
-potential = rbfPU(points, normals, @cfrbf, rbfHessian, rbfgrad, num_patches);
 V = potential(horzcat(flatten(x), flatten(y), flatten(z)));
+disp('Eval done')
 V = reshape(V, size(x));
 toc
 figure
@@ -78,6 +83,7 @@ set(p,'FaceColor',[0.5 1 0.5]);
 set(p,'EdgeColor','none');
 camlight('right', 'infinite');
 daspect([1 1 1]);
+lighting gouraud 
 view([90 0]);
 axis off;
 toc

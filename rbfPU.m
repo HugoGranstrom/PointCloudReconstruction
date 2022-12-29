@@ -1,26 +1,26 @@
 function func = rbfPU(train_pos, train_val, rbf, rbf_func, rbf_grad, N)
-    tic
+    %tic
     [patches, patch_indc, rho] = constructPatches(train_pos, N);
-    toc
+    %toc
     s_js = cell(size(patches,1), 1);
-    size(patches,1)
-    tic
+    %size(patches,1)
+    %tic
     parfor i=1:size(patches, 1)
         s_js{i} = rbf(train_pos(patch_indc{i}, :), train_val(patch_indc{i},:), rbf_func, rbf_grad);
     end
-    toc
+    %toc
     
     function v = evalRbfPU(x)
         w_func = @(r) (1 - r ./ rho).^2 .* (r < rho) .* (4 * r / rho + 2);
         v = zeros(size(x,1),1);
-        tic
+        %tic
         tree = KDTreeSearcher(x);
         points_in_patches = rangesearch(tree,patches,rho);
-        toc
+        %toc
         w = zeros(size(x,1),1);
         y = zeros(size(x,1),1);
         is_set = false(size(x,1),1);
-        tic
+        %tic
         for j=1:size(patches, 1)
             is_set(points_in_patches{j}) = 1;
             points = x(points_in_patches{j},:);
@@ -31,7 +31,7 @@ function func = rbfPU(train_pos, train_val, rbf, rbf_func, rbf_grad, N)
             y_j = s_j(points); % (n_x, 1)
             y(points_in_patches{j}) = y(points_in_patches{j}) + w_val .* y_j;
         end
-        toc
+        %toc
         v(~is_set) = NaN;
         v(is_set) = y(is_set) ./ w(is_set);
     end
