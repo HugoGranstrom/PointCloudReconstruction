@@ -1,11 +1,45 @@
 import nimib, nimiSlides, p5
 import arraymancer, std / [strutils]
 
+# Init
 nbInit(theme=revealTheme)
 
 nb.useLatex()
 nbUseP5()
 
+let nimYellow = "#FFE953"
+nb.addStyle: """
+:root {
+  --r-background-color: #181922;
+  --r-heading-color: $1;
+  --r-link-color: $1;
+  --r-selection-color: $1;
+  --r-link-color-dark: darken($1 , 15%)
+}
+.reveal ul, .reveal ol {
+  display: block;
+  text-align: left;
+}
+li::marker {
+  color: $1;
+  content: "»";
+}
+li {
+  padding-left: 12px;
+}
+""" % [nimYellow]
+
+# Title slide
+slide:
+  nbText: """
+## Surface reconstruction using radial basis functions
+
+Group 19: Hugo Granström & Caspar Norée Palm
+"""
+  nbRawHtml: hlHtml"""<img src="raptor.png" style="max-width: 50%;"/>"""
+
+
+# Distance matrix
 block distanceMatrix:
   nbJsFromCodeGlobal:
     from p5/p5instance_logic import globalAndLocal
@@ -55,10 +89,7 @@ block distanceMatrix:
   var matrix = newTensor[string](points.len, points.len)
   for i in 0 .. points.high:
     for j in 0 .. points.high:
-      matrix[i, j] = "r_{$1 → $2}" % [$i, $j]
-
-  slide:
-    nbText: toLatex(matrix)
+      matrix[i, j] = "r_{$1 → $2}" % [$(i+1), $(j+1)]
 
   var elements: seq[(int, int)]
   for (i, j) in pairs:
@@ -91,4 +122,5 @@ block distanceMatrix:
               stroke(255)
               line(points[i].x, points[i].y, points[j].x, points[j].y)
 
+# Save & export
 nbSave()
