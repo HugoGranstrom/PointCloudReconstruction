@@ -7,6 +7,9 @@ nbInit(theme=revealTheme)
 nb.useLatex()
 nbUseP5()
 
+template nbImage(src: string, size: string) =
+  nbRawHtml: hlHtmlF"""<img src="{src}" style="max-width: 50%;"/>"""
+
 let nimYellow = "#FFE953"
 nb.addStyle: """
 :root {
@@ -31,12 +34,28 @@ li {
 
 # Title slide
 slide:
-  nbText: """
+  nbText: hlMd"""
 ## Surface reconstruction using radial basis functions
 
 Group 19: Hugo Granström & Caspar Norée Palm
 """
   nbRawHtml: hlHtml"""<img src="raptor.png" style="max-width: 50%;"/>"""
+
+slide:
+  nbText: hlMd"""
+## Problem description
+"""
+  
+    
+  nbText: """
+- Given sampled points from surface $\Gamma$, create an approximation of
+$\Gamma$.
+"""
+  columns:
+    column:
+      nbImage("homer-ptcloud.png")
+    column:
+      nbImage("homer-surface.png")
 
 
 # Distance matrix
