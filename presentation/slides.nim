@@ -85,6 +85,11 @@ slide:
 - Real valued scalar function.
 - Function of the distance between two points.
 """
+  columns:
+    column:
+      nbImage("rbf_1d.png", size="45%")
+    column:
+      nbImage("rbf_2d.png",size="45%")
 
 slide:
   nbText: hlMd"""
@@ -196,9 +201,13 @@ slide:
 
 slide:
   nbText: hlMd"""
-### 
+### Partition of unity
 """
 
+slide:
+  nbText: hlMd"""
+### Off-point method  
+"""
 
 block:
   template nbP5Instance(val1: untyped, body: untyped) =
@@ -361,8 +370,41 @@ block:
       nbText: "### Off-point"
       offPointAnimation(i)
 
+slide:
+  nbText: hlMd"""
+### Results off-point  
+"""
 
-# TODO: RBF example using export_fig
+slide:
+  nbText: hlMd"""
+### The importance of $\delta$
+"""
+
+slide:
+  nbText: hlMd"""
+### Curl-free method  
+"""
+
+slide:
+  nbText: hlMd"""
+### Curl-free PU
+"""
+
+slide:
+  nbText: hlMd"""
+### Benchmarks
+| Method       | Construction [s] | Evaluation [s] |        Error         |
+|--------------|------------------|----------------|----------------------|
+| Off-point    | 96               | 5.7            | $5 \cdot 10 ^ {-8}$  |
+| Off-point PU | 1.5              | 5.4            | $4 \cdot 10 ^ {-4}$  |
+| Curl-free    | 93               | 5.8            | $2 \cdot 10 ^ {-15}$ |
+| Curl-free PU | 4.4              | 1.9            | $6 \cdot 10 ^ {-7}$  |
+"""
+
+slide:
+  nbText: hlMd"""
+### Thank you for listening!  
+"""
 
 # Save & export
 nbSave()
