@@ -49,19 +49,19 @@ points = ptcloud;
 % quiver3(points_test(:,1), points_test(:,2), points_test(:,3), p_test(:,1), p_test(:,2), p_test(:,3))
 % %scatter3(points(:,1), points(:,2), points(:,3))
 
-num_patches = size(ptcloud,1)/10;
-%potential = rbfPU(points, normals, @cfrbf, rbfHessian, rbfgrad, num_patches);
-potential = cfrbf(points, normals, rbfHessian, rbfgrad);
+num_patches = size(ptcloud,1)/30;
+potential = rbfPU(points, normals, @cfrbf, rbfHessian, rbfgrad, num_patches);
+%potential = cfrbf(points, normals, rbfHessian, rbfgrad);
 %% 
 
 tic
-N = 200;
-min_x = min(min(points(:,1)));
-min_y = min(min(points(:,2)));
-max_x = max(max(points(:,1)));
-max_y = max(max(points(:,2)));
-max_z = max(max(points(:,3)));
-min_z = min(min(points(:,3)));
+N = 400;
+min_x = min(min(points(:,1))) - 0.01;
+min_y = min(min(points(:,2))) - 0.01;
+max_x = max(max(points(:,1))) + 0.01;
+max_y = max(max(points(:,2))) + 0.01;
+max_z = max(max(points(:,3))) + 0.01;
+min_z = min(min(points(:,3))) - 0.01;
 [x, y, z] = meshgrid(linspace(min_x, max_x, N), linspace(min_y, max_y, N), linspace(min_z, max_z, N));
 %potential = cfrbf(points, normals, rbfgrad, rbfHessian);
 
@@ -90,34 +90,6 @@ toc
 %scatter3(points(:,1), points(:,2), points(:,3))
 %quiver3(points(:,1), points(:,2), points(:,3), normals(:, 1), normals(:, 2), normals(:, 3))
 hold off
-
-function H = gaussRbfHessian(x, epsilon)
-    H = zeros([3 3 size(x, 1)]);
-    ex = exp(-((epsilon * norm2(x)).^2));
-    H(1, 1, :) = epsilon^4 * x(:,1).^2 .* ex - 1/2 * epsilon^2 * ex;
-    H(2, 2, :) = epsilon^4 * x(:,2).^2 .* ex - 1/2 * epsilon^2 * ex;
-    H(3, 3, :) = epsilon^4 * x(:,3).^2 .* ex - 1/2 * epsilon^2 * ex;
-
-
-    H(1, 2, :) = x(:,1) .* x(:,2) .* epsilon^4 .* ex;
-    H(2, 1, :) = H(1, 2, :);
-
-    H(1, 3, :) = x(:,1) .* x(:,3) .* epsilon^4 .* ex;
-    H(3, 1, :) = H(1, 3, :);
-    
-
-    H(2, 3, :) = x(:,2) .* x(:,3) .* epsilon^4 .* ex;
-    H(3, 2, :) = H(2, 3, :);
-
-    H = H.*4;
-end
-
-function H = rbfHessianHandler(x, handle)
-    H = zeros([3 3 size(x, 1)]);
-    for i=1:size(x,1)
-        H(:,:,i) = handle(x(i,1), x(i,2), x(i,3));
-    end
-end
 
 function H = supportHessianRBF(x, epsilon, m_esp)
     H = zeros([3 3 size(x, 1)]);

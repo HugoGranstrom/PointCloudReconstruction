@@ -16,7 +16,7 @@ rbfHessian =  @(x) (supportHessianRBF(x, epsilon, dr));
 
 %eval_points = horzcat(flatten(x), flatten(y), flatten(z));
 
-N = 3000 * 2;
+N = 10000 * 2;
 num_patches = N / 2 / 10;
 
 points = SpherePoints(N);
@@ -29,20 +29,20 @@ normals = points;
 
 % CF
 tic
-potential_cf = cfrbf(points, normals, rbfHessian, rbfgrad);
+potential = cfrbf(points, normals, rbfHessian, rbfgrad);
 disp(['Curl-free construction: ' num2str(toc)])
 tic
-V_cf = potential_cf(points_eval);
+V_cf = potential(points_eval);
 disp(['Curl-free evaluation: ' num2str(toc)])
 error = sum(V_cf .^ 2);
 disp(['Curl-free error: ' num2str(error)])
 
 % CF-PU
 tic
-potential_cf = rbfPU(points, normals, @cfrbf, rbfHessian, rbfgrad, num_patches);
+potential = rbfPU(points, normals, @cfrbf, rbfHessian, rbfgrad, num_patches);
 disp(['Curl-free PU construction: ' num2str(toc)])
 tic
-V_cf = potential_cf(points_eval);
+V_cf = potential(points_eval);
 disp(['Curl-free PU evaluation: ' num2str(toc)])
 error = sum(V_cf .^ 2);
 disp(['Curl-free PU error: ' num2str(error)])
@@ -55,20 +55,20 @@ train_data = vertcat(points, delta_pos, delta_neg);
 train_data_w = vertcat(zeros(size(points,1),1), sigma.*ones(size(delta_pos,1),1), -sigma.*ones(size(delta_neg,1),1));
 
 tic
-potential_op = rbf(train_data, train_data_w, rbf_func, rbfgrad);
+potential = rbf(train_data, train_data_w, rbf_func, rbfgrad);
 disp(['Off-point construction: ' num2str(toc)])
 tic
-V_op = potential_op(points_eval);
+V_op = potential(points_eval);
 disp(['Off-point evaluation: ' num2str(toc)])
 error = sum(V_op .^ 2);
 disp(['Off-point error: ' num2str(error)])
 
 % Off-point PU
 tic
-potential_op = rbfPU(train_data, train_data_w, @rbf, rbf_func, rbf_func, num_patches);
+potential = rbfPU(train_data, train_data_w, @rbf, rbf_func, rbf_func, num_patches);
 disp(['Off-point PU construction: ' num2str(toc)])
 tic
-V_op = potential_op(points_eval);
+V_op = potential(points_eval);
 disp(['Off-point PU evaluation: ' num2str(toc)])
 error = sum(V_op .^ 2);
 disp(['Off-point PU error: ' num2str(error)])
