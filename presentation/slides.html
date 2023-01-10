@@ -211,83 +211,137 @@ $$</p>
       </section>
       <section data-nimib-slide-number="18" >
       <h3>Partition of unity</h3>
+<ul>
+<li>Goal: Solving large problems</li>
+<li>Solution: Partition domain into patches</li>
+</ul>
       </section>
       <section data-nimib-slide-number="19" >
-      <h3>Off-point method</h3>
+      <h3>Partition of unity</h3>
+<ul>
+<li>Weighted blending gives a smooth global interpolation</li>
+</ul>
+<p>$s(\mathbf{x}) = \sum_{i=1}^M w_i(\mathbf{x}) s_i(\mathbf{x})$</p>
+<ul>
+<li>The weight funtion could be Wendland's $C^2$.</li>
+</ul>
       </section>
       <section data-nimib-slide-number="20" >
+      <h3>Surface reconstruction</h3>
+<h3>Off-point method</h3>
+      </section>
+      <section data-nimib-slide-number="21" >
       <h3>Off-point</h3>
       <div id="p5instance-2"></div>
       
       </section>
-      <section data-nimib-slide-number="21" >
+      <section data-nimib-slide-number="22" >
       <h3>Off-point</h3>
       <div id="p5instance-3"></div>
       
       </section>
-      <section data-nimib-slide-number="22" >
+      <section data-nimib-slide-number="23" >
       <h3>Off-point</h3>
       <div id="p5instance-4"></div>
       
       </section>
-      <section data-nimib-slide-number="23" >
+      <section data-nimib-slide-number="24" >
       <h3>Off-point</h3>
       <div id="p5instance-5"></div>
       
       </section>
-      <section data-nimib-slide-number="24" >
+      <section data-nimib-slide-number="25" >
       <h3>Off-point</h3>
       <div id="p5instance-6"></div>
       
       </section>
-      <section data-nimib-slide-number="25" >
+      <section data-nimib-slide-number="26" >
       <h3>Off-point</h3>
       <div id="p5instance-7"></div>
       
       </section>
-      <section data-nimib-slide-number="26" >
+      <section data-nimib-slide-number="27" >
       <h3>Off-point</h3>
       <div id="p5instance-8"></div>
       
       </section>
-      <section data-nimib-slide-number="27" >
+      <section data-nimib-slide-number="28" >
       <h3>Off-point</h3>
       <div id="p5instance-9"></div>
       
       </section>
-      <section data-nimib-slide-number="28" >
+      <section data-nimib-slide-number="29" >
       <h3>Off-point</h3>
       <div id="p5instance-10"></div>
       
       </section>
-      <section data-nimib-slide-number="29" >
+      <section data-nimib-slide-number="30" >
       <h3>Off-point</h3>
       <div id="p5instance-11"></div>
       
       </section>
-      <section data-nimib-slide-number="30" >
+      <section data-nimib-slide-number="31" >
       <h3>Off-point</h3>
       <div id="p5instance-12"></div>
       
       </section>
-      <section data-nimib-slide-number="31" >
+      <section data-nimib-slide-number="32" >
       <h3>Off-point</h3>
       <div id="p5instance-13"></div>
       
       </section>
-      <section data-nimib-slide-number="32" >
+      <section data-nimib-slide-number="33" >
       <h3>Results off-point</h3>
       </section>
-      <section data-nimib-slide-number="33" >
+      <section data-nimib-slide-number="34" >
       <h3>The importance of $\delta$</h3>
       </section>
-      <section data-nimib-slide-number="34" >
-      <h3>Curl-free method</h3>
-      </section>
       <section data-nimib-slide-number="35" >
-      <h3>Curl-free PU</h3>
+      <h3>Surface reconstruction</h3>
+<h3>Curl-free method</h3>
       </section>
       <section data-nimib-slide-number="36" >
+      <h3>Surface normals and potentials</h3>
+<ul>
+<li>If a surface is a level-set to a function will the normals be perpendicular to the gradient</li>
+<li>If a scalar-function has a gradient is the function a potential</li>
+<li>All potentials can be shown to be curl free</li>
+</ul>
+      </section>
+      <section data-nimib-slide-number="37" >
+      <h3>Curl-free RBF interpolation</h3>
+<ul>
+<li>Interpolate curl-free vector fields</li>
+<li>Construct Hessian of a scalar RBF
+$\mathbf{\Phi}(|| \mathbf{x} - \mathbf{x}<em>{center} ||) = -\nabla \nabla^T \phi(|| \mathbf{x} - \mathbf{x}</em>{center} ||)$</li>
+</ul>
+      </section>
+      <section data-nimib-slide-number="38" >
+      <h3>Curl-free Method</h3>
+<ul>
+<li>
+<p>Derive potential anlytically
+$s(\mathbf{x}) = \sum_{i=1}^N \nabla^T \phi(|| \mathbf{x} - \mathbf{x}_{i} ||)$</p>
+</li>
+<li>
+<p>Unique to a constant $C$.</p>
+</li>
+<li>
+<p>Compensate by subtracting mean potential in points</p>
+</li>
+</ul>
+      </section>
+      <section data-nimib-slide-number="39" >
+      <h3>Curl-free PU</h3>
+<ul>
+<li>Blend potential function, not vector field</li>
+<li>Compensate for $C$ in each patch.</li>
+</ul>
+      </section>
+      <section data-nimib-slide-number="40" >
+      <img src="raptor_surface.png" style="max-width: 80%; margin: 0px;"/><p style="font-size: 16px; margin: 0px;"></p>
+      </section>
+      <section data-nimib-slide-number="41" >
       <div style="font-size: 30px">
       <h3>Benchmarks</h3>
 <table>
@@ -326,7 +380,7 @@ $$</p>
 </tr></tbody></table>
       </div>
       </section>
-      <section data-nimib-slide-number="37" >
+      <section data-nimib-slide-number="42" >
       <h3>Thank you for listening!</h3>
       </section>
       <script defer>/* Generated by the Nim Compiler v1.6.10 */

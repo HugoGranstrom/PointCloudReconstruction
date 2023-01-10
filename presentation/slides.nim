@@ -215,10 +215,8 @@ block distanceMatrix:
 slide:
   nbText: hlMd"""
 ### RBF interpolation
-Given input points $x$ and outputs $y$ we can construct a linear system of equations:
-$Ac = y$ where A is our distance matrix constructed using our points $x$.
-
-Solving this will give us $c$ which is our scaling coefficients for our RBFs.
+- $Ac = y$
+- Solution $c$ is the coefficients for the RBFs.
 """
 
 slide:
@@ -267,12 +265,24 @@ slide:
 
 slide:
   nbText: hlMd"""
-### Localization
 ### Partition of unity
+- Goal: Solving large problems
+- Solution: Partition domain into patches 
 """
 
 slide:
   nbText: hlMd"""
+  ### Partition of unity
+  - Weighted blending gives a smooth global interpolation
+
+  $s(\mathbf{x}) = \sum_{i=1}^M w_i(\mathbf{x}) s_i(\mathbf{x})$
+
+  - The weight funtion could be Wendland's $C^2$.
+"""
+
+slide:
+  nbText: hlMd"""
+### Surface reconstruction
 ### Off-point method  
 """
 
@@ -449,13 +459,44 @@ slide:
 
 slide:
   nbText: hlMd"""
+### Surface reconstruction
 ### Curl-free method  
 """
 
 slide:
   nbText: hlMd"""
-### Curl-free PU
+### Surface normals and potentials
+- If a surface is a level-set to a function will the normals be perpendicular to the gradient
+- If a scalar-function has a gradient is the function a potential
+- All potentials can be shown to be curl free
 """
+
+slide:
+  nbText: hlMd"""
+### Curl-free RBF interpolation
+- Interpolate curl-free vector fields
+- Construct Hessian of a scalar RBF
+$\mathbf{\Phi}(|| \mathbf{x} - \mathbf{x}_{center} ||) = -\nabla \nabla^T \phi(|| \mathbf{x} - \mathbf{x}_{center} ||)$
+"""
+
+slide:
+  nbText: hlMd"""
+  ### Curl-free Method
+  - Derive potential anlytically
+  $s(\mathbf{x}) = \sum_{i=1}^N \nabla^T \phi(|| \mathbf{x} - \mathbf{x}_{i} ||)$
+  - Unique to a constant $C$.
+  - Compensate by subtracting mean potential in points
+"""
+
+slide:
+  nbText: hlMd"""
+### Curl-free PU
+- Blend potential function, not vector field
+- Compensate for $C$ in each patch.
+"""
+
+slide:
+  nbImage("raptor_surface.png",size="80%")
 
 slide:
   fontSize(30):
