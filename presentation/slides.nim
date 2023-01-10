@@ -10,6 +10,11 @@ nbUseP5()
 template nbImage(src: string, size: string, caption = "") =
   nbRawHtml: hlHtml"""<img src="$1" style="max-width: $2; margin: 0px;"/><p style="font-size: 16px; margin: 0px;">$3</p>""" % [src, size, caption]
 
+template fontSize(size: int, body: untyped) =
+  nbRawHtml: hlHtml"""<div style="font-size: $1px">""" % [$size]
+  body
+  nbRawHtml: hlHtml"""</div>"""
+
 template listText(s: string) =
   listItem:
     nbText:
@@ -92,6 +97,26 @@ slide:
       nbImage("rbf_2d.png",size="45%")
 
 slide:
+  nbImage("rbfExplain1.png")
+
+slide:
+  nbImage("rbfExplain2.png")
+
+slide:
+  nbImage("rbfExplain3.png")
+
+slide:
+  nbImage("rbfExplain4.png")
+
+slide:
+  nbImage("rbfExplain5.png")
+
+slide:
+  nbImage("rbfExplain6.png")
+
+
+
+slide:
   nbText: hlMd"""
 ### Distance matrix
 ...
@@ -120,7 +145,7 @@ block distanceMatrix:
   proc toLatex[T](t: Tensor[T]): string =
     let rows = t.shape[0]
     let cols = t.shape[1]
-    result = "$$\n\\begin{bmatrix}\n"
+    result = "$$\n A = \\phi \\left(\\begin{bmatrix}\n"
     for i in 0 ..< rows:
       for j in 0 ..< cols:
         result &= $t[i, j]
@@ -128,7 +153,7 @@ block distanceMatrix:
           result &= " & " 
       result &= " \\\\\\\\ \n"
 
-    result &= "\\end{bmatrix}\n$$"
+    result &= "\\end{bmatrix} \\right)\n$$"
 
   proc partialMatrix[T](t: Tensor[T], elements: openArray[(int, int)], highlight: openArray[(int, int)] = @[]): string =
     let rows = t.shape[0]
@@ -136,7 +161,7 @@ block distanceMatrix:
     var m = newTensor[T](rows, cols)
     for i in 0 ..< rows:
       for j in 0 ..< cols:
-        if (i, j) in elements:
+        if (i, j) in elements or true:
           if (i, j) in highlight:
             m[i, j] = "\\\\color{green}{" & $t[i, j] & "}"
           else:
@@ -144,27 +169,25 @@ block distanceMatrix:
     result = m.toLatex
 
   let points = [(x: 120, y: 130), (200, 210), (300, 150)]
-  var pairs: seq[(int, int)]
+  #[var pairs: seq[(int, int)]
   for i in 0 .. points.high:
     for j in i .. points.high:
-      pairs.add (i, j)
+      pairs.add (i, j) ]#
 
   var matrix = newTensor[string](points.len, points.len)
   for i in 0 .. points.high:
     for j in 0 .. points.high:
       matrix[i, j] = "r_{$1 → $2}" % [$(i+1), $(j+1)]
 
-  var elements: seq[(int, int)]
-  for (i, j) in pairs:
-    elements.add (i, j)
-    elements.add (j, i)
+  template distanceMatrixAnimation(element: tuple[i, j: int] = (-1, -1)) =
+    let el = element
     slide:
       nbText: "### Distance matrix"
-      columns:
+      adaptiveColumns:
         column:
-          nbText: matrix.partialMatrix(elements, @[(i, j), (j, i)])
+          fontSize(30):
+            nbText: matrix.partialMatrix(@[], @[el])
         column:
-          let el = (i: i, j: j)
           nbP5Instance(points, el):
             setup:
               createCanvas(400, 400)
@@ -184,6 +207,10 @@ block distanceMatrix:
               strokeWeight(3)
               stroke(255)
               line(points[i].x, points[i].y, points[j].x, points[j].y)
+
+  distanceMatrixAnimation()
+  distanceMatrixAnimation((i: 1, j: 2))
+
 
 slide:
   nbText: hlMd"""
@@ -391,7 +418,8 @@ slide:
 """
 
 slide:
-  nbText: hlMd"""
+  fontSize(30):
+    nbText: hlMd"""
 ### Benchmarks
 | Method       | Construction [s] | Evaluation [s] |        Error         |
 |--------------|------------------|----------------|----------------------|
