@@ -119,7 +119,7 @@ slide:
 slide:
   nbText: hlMd"""
 ### Distance matrix
-...
+- Constructing a linear system for our interpolation problem.
 """
 
 # Distance matrix
@@ -215,19 +215,59 @@ block distanceMatrix:
 slide:
   nbText: hlMd"""
 ### RBF interpolation
-...
+Given input points $x$ and outputs $y$ we can construct a linear system of equations:
+$Ac = y$ where A is our distance matrix constructed using our points $x$.
+
+Solving this will give us $c$ which is our scaling coefficients for our RBFs.
 """
 
 slide:
   nbText: hlMd"""
-### RBF Example
-...
+### Numerical stability
+- Positive definite for numerical stability
+- One such RBF is a gaussian kernel 
+  $\phi(x)=e^{-\epsilon r^2}$
 """
+  nbImage("rbf_guassian.png", size="45%")
+
+slide:
+  nbText: hlMd"""
+### Numerical stability
+- Compact support for sparsity
+- One such RBF, Wendland's $C^2$ kernel
+
+$$
+\phi(r) = \begin{cases} 
+(1 - \frac{r}{\epsilon})^4(4 \frac{r}{\epsilon} + 1) & r <= \epsilon \\
+0 & r > \epsilon
+\end{cases}
+$$
+""" # TODO: Fix not inline latex
+  columns:
+    column:
+      nbImage("rbf_1d.png", size="45%")
+    column:
+      nbImage("rbf_2d.png",size="45%")
+
+slide:
+  nbText: hlMd"""
+### RBF Interpolation in $\mathbb{R}^n$
+- Easy since Euclidian norm is defined in any $\mathbb{R}^n$.
+
+
+"""
+  columns:
+    column:
+      nbImage("mesh_peaks.png", size="45%")
+    column:
+      nbImage("rbf_peaks.png",size="45%")
+
 
 # TODO: Generate images on transparent!
 
 slide:
   nbText: hlMd"""
+### Localization
 ### Partition of unity
 """
 
