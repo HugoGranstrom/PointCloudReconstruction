@@ -213,7 +213,7 @@ slide:
 
 slide:
   nbText: hlMd"""
-### Numerical stability
+### Numerical properties
 - Positive definite for unique solution.
 - One such RBF is a gaussian kernel 
   $\phi(r)=e^{-\epsilon r^2}$
@@ -238,19 +238,6 @@ $$
       nbImage("rbf_1d.png", size="45%")
     column:
       nbImage("rbf_2d.png",size="45%")
-
-slide:
-  nbText: hlMd"""
-### RBF Interpolation in $\mathbb{R}^n$
-- Easy since Euclidian norm is defined in any $\mathbb{R}^n$.
-
-
-"""
-  columns:
-    column:
-      nbImage("mesh_peaks.png", size="45%")
-    column:
-      nbImage("rbf_peaks.png",size="45%")
 
 slide:
   nbText: hlMd"""
@@ -469,9 +456,9 @@ slide:
 """
   columns:
     column:
-      nbImage("homer_offpu_1e-3.png")
+      nbImage("homer_offpu_1e-3.png", size="50%", caption="PU")
     column:
-      nbImage("homer-off.png")
+      nbImage("homer-off.png", size="50%", caption="Global")
   
 
 slide:
@@ -480,11 +467,11 @@ slide:
 """
   columns:
     column:
-      nbImage("homer_offpu_1e-10.png", caption="$\\delta = 10 ^ {-10}$", size="100%")
+      nbImage("homer_offpu_1e-10.png", caption="$\\delta = 10 ^ {-10}$", size="50%")
     column:
-      nbImage("homer_offpu_1e-3.png", caption="$\\delta = 10 ^ {-3}$", size="100%")
+      nbImage("homer_offpu_1e-3.png", caption="$\\delta = 10 ^ {-3}$", size="50%")
     column:
-      nbImage("homer_offpu_1e-1.png", caption="$\\delta = 10 ^ {-1}$", size="100%")
+      nbImage("homer_offpu_1e-1.png", caption="$\\delta = 10 ^ {-1}$", size="75%")
     
 
 slide:
