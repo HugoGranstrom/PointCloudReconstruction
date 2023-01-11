@@ -218,7 +218,7 @@ slide:
 slide:
   nbText: hlMd"""
 ### Numerical stability
-- Positive definite for numerical stability
+- Positive definite for unique solution.
 - One such RBF is a gaussian kernel 
   $\phi(x)=e^{-\epsilon r^2}$
 """
@@ -236,7 +236,7 @@ $$
 0 & r > \epsilon
 \end{cases}
 $$
-""" # TODO: Fix not inline latex
+"""
   columns:
     column:
       nbImage("rbf_1d.png", size="45%")
@@ -255,9 +255,6 @@ slide:
       nbImage("mesh_peaks.png", size="45%")
     column:
       nbImage("rbf_peaks.png",size="45%")
-
-
-# TODO: Generate images on transparent!
 
 slide:
   nbText: hlMd"""
@@ -278,7 +275,7 @@ slide:
 
 slide:
   nbText: hlMd"""
-### Surface reconstruction
+## Surface reconstruction
 ### Off-point method  
 """
 
@@ -495,16 +492,18 @@ slide:
 
 slide:
   nbText: hlMd"""
-### Surface reconstruction
+## Surface reconstruction
 ### Curl-free method  
 """
 
+
+# TODO: fundera på formuleringarna här:
 slide:
   nbText: hlMd"""
 ### Surface normals and potentials
-- If a surface is a level-set to a function will the normals be perpendicular to the gradient
-- If a scalar-function has a gradient is the function a potential
-- All potentials can be shown to be curl free
+- If a surface is a level-set to a function, the normals will be parallel to the gradient.
+- If a scalar-function has a gradient, the function is a potential.
+- All gradients can be shown to be curl free.
 """
 
 slide:
@@ -522,7 +521,7 @@ slide:
   nbText: hlMd"""
   ### Curl-free Method
   - Derive potential anlytically
-  $s(\mathbf{x}) = \sum_{i=1}^N \nabla^T \phi(|| \mathbf{x} - \mathbf{x}_{i} ||)$
+  $s(\mathbf{x}) = \sum_{i=1}^N \nabla^T \phi(|| \mathbf{x} - \mathbf{x}_{i} ||) \mathbf{c}$
   - Unique to a constant $C$.
   - Compensate by subtracting mean potential in points
 """
