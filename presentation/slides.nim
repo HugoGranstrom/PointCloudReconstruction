@@ -105,10 +105,7 @@ slide:
   nbImage("rbfExplain4.png")
 
 slide:
-  nbImage("rbfExplain5.png")
-
-slide:
-  nbImage("rbfExplain6.png")
+  nbImage("rbfExplain5.png")  
 
 
 
@@ -204,7 +201,6 @@ block distanceMatrix:
               stroke(255)
               line(points[i].x, points[i].y, points[j].x, points[j].y)
 
-  distanceMatrixAnimation()
   distanceMatrixAnimation((i: 1, j: 2))
 
 
@@ -262,6 +258,7 @@ slide:
 - Goal: Solving large problems
 - Solution: Partition domain into patches 
 """
+  nbImage("patchViz.png", size="50%")
 
 slide:
   nbText: hlMd"""
