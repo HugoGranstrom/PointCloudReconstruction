@@ -119,7 +119,7 @@ slide:
 slide:
   nbText: hlMd"""
 ### Distance matrix
-...
+- Constructing a linear system for our interpolation problem.
 """
 
 # Distance matrix
@@ -215,24 +215,74 @@ block distanceMatrix:
 slide:
   nbText: hlMd"""
 ### RBF interpolation
-...
+- $Ac = y$
+- Solution $c$ is the coefficients for the RBFs.
 """
 
 slide:
   nbText: hlMd"""
-### RBF Example
-...
+### Numerical stability
+- Positive definite for numerical stability
+- One such RBF is a gaussian kernel 
+  $\phi(x)=e^{-\epsilon r^2}$
 """
+  nbImage("rbf_guassian.png", size="45%")
+
+slide:
+  nbText: hlMd"""
+### Numerical stability
+- Compact support for sparsity
+- One such RBF, Wendland's $C^2$ kernel
+
+$$
+\phi(r) = \begin{cases} 
+(1 - \frac{r}{\epsilon})^4(4 \frac{r}{\epsilon} + 1) & r <= \epsilon \\
+0 & r > \epsilon
+\end{cases}
+$$
+""" # TODO: Fix not inline latex
+  columns:
+    column:
+      nbImage("rbf_1d.png", size="45%")
+    column:
+      nbImage("rbf_2d.png",size="45%")
+
+slide:
+  nbText: hlMd"""
+### RBF Interpolation in $\mathbb{R}^n$
+- Easy since Euclidian norm is defined in any $\mathbb{R}^n$.
+
+
+"""
+  columns:
+    column:
+      nbImage("mesh_peaks.png", size="45%")
+    column:
+      nbImage("rbf_peaks.png",size="45%")
+
 
 # TODO: Generate images on transparent!
 
 slide:
   nbText: hlMd"""
 ### Partition of unity
+- Goal: Solving large problems
+- Solution: Partition domain into patches 
 """
 
 slide:
   nbText: hlMd"""
+  ### Partition of unity
+  - Weighted blending gives a smooth global interpolation
+
+  $s(\mathbf{x}) = \sum_{i=1}^M w_i(\mathbf{x}) s_i(\mathbf{x})$
+
+  - The weight funtion could be Wendland's $C^2$.
+"""
+
+slide:
+  nbText: hlMd"""
+### Surface reconstruction
 ### Off-point method  
 """
 
@@ -449,13 +499,44 @@ slide:
 
 slide:
   nbText: hlMd"""
+### Surface reconstruction
 ### Curl-free method  
 """
 
 slide:
   nbText: hlMd"""
-### Curl-free PU
+### Surface normals and potentials
+- If a surface is a level-set to a function will the normals be perpendicular to the gradient
+- If a scalar-function has a gradient is the function a potential
+- All potentials can be shown to be curl free
 """
+
+slide:
+  nbText: hlMd"""
+### Curl-free RBF interpolation
+- Interpolate curl-free vector fields
+- Construct Hessian of a scalar RBF
+$\mathbf{\Phi}(|| \mathbf{x} - \mathbf{x}_{center} ||) = -\nabla \nabla^T \phi(|| \mathbf{x} - \mathbf{x}_{center} ||)$
+"""
+
+slide:
+  nbText: hlMd"""
+  ### Curl-free Method
+  - Derive potential anlytically
+  $s(\mathbf{x}) = \sum_{i=1}^N \nabla^T \phi(|| \mathbf{x} - \mathbf{x}_{i} ||)$
+  - Unique to a constant $C$.
+  - Compensate by subtracting mean potential in points
+"""
+
+slide:
+  nbText: hlMd"""
+### Curl-free PU
+- Blend potential function, not vector field
+- Compensate for $C$ in each patch.
+"""
+
+slide:
+  nbImage("raptor_surface.png",size="80%")
 
 slide:
   fontSize(30):
