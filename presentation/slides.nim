@@ -392,20 +392,60 @@ block:
         strokeWeight(5)
         for angle in countup(0, 360, 30):
           point(math.cos(angle.degToRad) * r, math.sin(angle.degTorad) * r) ]#
-  for i in 0 .. 11:
+  for i in 0 .. 2:
+    slide:
+      nbText: "### Off-point"
+      offPointAnimation(i)
+
+  slide:
+    nbText: hlMd"""
+### Off-point
+- Extend to 3D.
+- Find $f(x, y)$ such that $f(x, y) = 0$ gives the curve.
+- We need points outside the curve!
+"""
+
+  for i in 2 .. 11:
     slide:
       nbText: "### Off-point"
       offPointAnimation(i)
 
 slide:
+  nbText: "### Off-point interpolant"
+  nbImage("2d-circle-offpoint.png")
+
+slide:
   nbText: hlMd"""
-### Results off-point  
+### Off-point summary
+- $f(\mathbf{x}) = 0$
+- $f(\mathbf{x} + \delta \mathbf{n}) = 1$
+- $f(\mathbf{x} - \delta \mathbf{n}) = -1$
 """
+
+
+slide:
+  nbText: hlMd"""
+### Results off-point
+"""
+  columns:
+    column:
+      nbImage("homer_offpu_1e-3.png")
+    column:
+      nbText("Normal off-point image here!")
+  
 
 slide:
   nbText: hlMd"""
 ### The importance of $\delta$
 """
+  columns:
+    column:
+      nbText: "offpoint with too small $\\delta$ here!"
+    column:
+      nbImage("homer_offpu_1e-3.png", caption="$\\delta = 10 ^ {-3}$", size="100%")
+    column:
+      nbImage("homer_offpu_1e-1.png", caption="$\\delta = 10 ^ {-1}$", size="100%")
+    
 
 slide:
   nbText: hlMd"""
