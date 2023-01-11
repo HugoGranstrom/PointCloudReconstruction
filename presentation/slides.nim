@@ -474,7 +474,7 @@ slide:
     column:
       nbImage("homer_offpu_1e-3.png")
     column:
-      nbText("Normal off-point image here!")
+      nbImage("homer-off.png")
   
 
 slide:
@@ -483,7 +483,7 @@ slide:
 """
   columns:
     column:
-      nbText: "offpoint with too small $\\delta$ here!"
+      nbImage("homer_offpu_1e-10.png", caption="$\\delta = 10 ^ {-10}$", size="100%")
     column:
       nbImage("homer_offpu_1e-3.png", caption="$\\delta = 10 ^ {-3}$", size="100%")
     column:
