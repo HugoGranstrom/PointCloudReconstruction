@@ -42,10 +42,6 @@ li {
 }
 """ % [nimYellow]
 
-
-        
-
-
 # Title slide
 slide:
   nbText: hlMd"""
@@ -236,7 +232,7 @@ slide:
 
 $$
 \phi(r) = \begin{cases} 
-(1 - \frac{r}{\epsilon})^4(4 \frac{r}{\epsilon} + 1) & r <= \epsilon \\
+(1 - \frac{r}{\epsilon})^4(4 \frac{r}{\epsilon} + 1) & r <= \epsilon \\\\
 0 & r > \epsilon
 \end{cases}
 $$
@@ -516,7 +512,10 @@ slide:
 ### Curl-free RBF interpolation
 - Interpolate curl-free vector fields
 - Construct Hessian of a scalar RBF
-$\mathbf{\Phi}(|| \mathbf{x} - \mathbf{x}_{center} ||) = -\nabla \nabla^T \phi(|| \mathbf{x} - \mathbf{x}_{center} ||)$
+
+$$
+\mathbf{\Phi}(|| \mathbf{x} - \mathbf{x}_{center} ||) = -\nabla \nabla^T \phi(|| \mathbf{x} - \mathbf{x}\_{center} ||)
+$$
 """
 
 slide:
