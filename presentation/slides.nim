@@ -232,7 +232,7 @@ slide:
 
 $$
 \phi(r) = \begin{cases} 
-(1 - \frac{r}{\epsilon})^4(4 \frac{r}{\epsilon} + 1) & r <= \epsilon \\\\
+(1 - \frac{r}{\epsilon})^4(4 \frac{r}{\epsilon} + 1) & r \le \epsilon \\\\
 0 & r > \epsilon
 \end{cases}
 $$
