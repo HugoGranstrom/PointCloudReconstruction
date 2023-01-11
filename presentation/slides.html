@@ -161,16 +161,17 @@ $$</p>
       </section>
       <section data-nimib-slide-number="14" >
       <h3>RBF interpolation</h3>
-<p>Given input points $x$ and outputs $y$ we can construct a linear system of equations:
-$Ac = y$ where A is our distance matrix constructed using our points $x$.</p>
-<p>Solving this will give us $c$ which is our scaling coefficients for our RBFs.</p>
+<ul>
+<li>$Ac = y$</li>
+<li>Solution $c$ is the coefficients for the RBFs.</li>
+</ul>
       </section>
       <section data-nimib-slide-number="15" >
       <h3>Numerical stability</h3>
 <ul>
-<li>Positive definite for numerical stability</li>
+<li>Positive definite for unique solution.</li>
 <li>One such RBF is a gaussian kernel
-$\phi(x)=e^{-\epsilon r^2}$</li>
+$\phi(r)=e^{-\epsilon r^2}$</li>
 </ul>
       <img src="rbf_guassian.png" style="max-width: 45%; margin: 0px;"/><p style="font-size: 16px; margin: 0px;"></p>
       </section>
@@ -182,7 +183,7 @@ $\phi(x)=e^{-\epsilon r^2}$</li>
 </ul>
 <p>$$
 \phi(r) = \begin{cases}
-(1 - \frac{r}{\epsilon})^4(4 \frac{r}{\epsilon} + 1) &amp; r &lt;= \epsilon \
+(1 - \frac{r}{\epsilon})^4(4 \frac{r}{\epsilon} + 1) &amp; r &lt;= \epsilon \\
 0 &amp; r &gt; \epsilon
 \end{cases}
 $$</p>
@@ -227,7 +228,7 @@ $$</p>
 </ul>
       </section>
       <section data-nimib-slide-number="20" >
-      <h3>Surface reconstruction</h3>
+      <h2>Surface reconstruction</h2>
 <h3>Off-point method</h3>
       </section>
       <section data-nimib-slide-number="21" >
@@ -247,81 +248,136 @@ $$</p>
       </section>
       <section data-nimib-slide-number="24" >
       <h3>Off-point</h3>
-      <div id="p5instance-5"></div>
-      
+<ul>
+<li>Extend to 3D.</li>
+<li>Find $f(x, y)$ such that $f(x, y) = 0$ gives the curve.</li>
+<li>We need points outside the curve!</li>
+</ul>
       </section>
       <section data-nimib-slide-number="25" >
       <h3>Off-point</h3>
-      <div id="p5instance-6"></div>
+      <div id="p5instance-5"></div>
       
       </section>
       <section data-nimib-slide-number="26" >
       <h3>Off-point</h3>
-      <div id="p5instance-7"></div>
+      <div id="p5instance-6"></div>
       
       </section>
       <section data-nimib-slide-number="27" >
       <h3>Off-point</h3>
-      <div id="p5instance-8"></div>
+      <div id="p5instance-7"></div>
       
       </section>
       <section data-nimib-slide-number="28" >
       <h3>Off-point</h3>
-      <div id="p5instance-9"></div>
+      <div id="p5instance-8"></div>
       
       </section>
       <section data-nimib-slide-number="29" >
       <h3>Off-point</h3>
-      <div id="p5instance-10"></div>
+      <div id="p5instance-9"></div>
       
       </section>
       <section data-nimib-slide-number="30" >
       <h3>Off-point</h3>
-      <div id="p5instance-11"></div>
+      <div id="p5instance-10"></div>
       
       </section>
       <section data-nimib-slide-number="31" >
       <h3>Off-point</h3>
-      <div id="p5instance-12"></div>
+      <div id="p5instance-11"></div>
       
       </section>
       <section data-nimib-slide-number="32" >
       <h3>Off-point</h3>
-      <div id="p5instance-13"></div>
+      <div id="p5instance-12"></div>
       
       </section>
       <section data-nimib-slide-number="33" >
-      <h3>Results off-point</h3>
+      <h3>Off-point</h3>
+      <div id="p5instance-13"></div>
+      
       </section>
       <section data-nimib-slide-number="34" >
-      <h3>The importance of $\delta$</h3>
+      <h3>Off-point</h3>
+      <div id="p5instance-14"></div>
+      
       </section>
       <section data-nimib-slide-number="35" >
-      <h3>Surface reconstruction</h3>
-<h3>Curl-free method</h3>
+      <h3>Off-point interpolant</h3>
+      <figure>
+<img src="2d-circle-offpoint.png" alt="">
+<figcaption></figcaption>
+</figure>
       </section>
       <section data-nimib-slide-number="36" >
-      <h3>Surface normals and potentials</h3>
+      <h3>Off-point summary</h3>
 <ul>
-<li>If a surface is a level-set to a function will the normals be perpendicular to the gradient</li>
-<li>If a scalar-function has a gradient is the function a potential</li>
-<li>All potentials can be shown to be curl free</li>
+<li>$f(\mathbf{x}) = 0$</li>
+<li>$f(\mathbf{x} + \delta \mathbf{n}) = 1$</li>
+<li>$f(\mathbf{x} - \delta \mathbf{n}) = -1$</li>
 </ul>
       </section>
       <section data-nimib-slide-number="37" >
+      <h3>Results off-point</h3>
+      <div style="display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); overflow-wrap: break-word;">
+      <div>
+      <figure>
+<img src="homer_offpu_1e-3.png" alt="">
+<figcaption></figcaption>
+</figure>
+      </div>
+      <div>
+      <figure>
+<img src="homer-off.png" alt="">
+<figcaption></figcaption>
+</figure>
+      </div>
+      </div>
+      </section>
+      <section data-nimib-slide-number="38" >
+      <h3>The importance of $\delta$</h3>
+      <div style="display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); overflow-wrap: break-word;">
+      <div>
+      <img src="homer_offpu_1e-10.png" style="max-width: 100%; margin: 0px;"/><p style="font-size: 16px; margin: 0px;">$\delta = 10 ^ {-10}$</p>
+      </div>
+      <div>
+      <img src="homer_offpu_1e-3.png" style="max-width: 100%; margin: 0px;"/><p style="font-size: 16px; margin: 0px;">$\delta = 10 ^ {-3}$</p>
+      </div>
+      <div>
+      <img src="homer_offpu_1e-1.png" style="max-width: 100%; margin: 0px;"/><p style="font-size: 16px; margin: 0px;">$\delta = 10 ^ {-1}$</p>
+      </div>
+      </div>
+      </section>
+      <section data-nimib-slide-number="39" >
+      <h2>Surface reconstruction</h2>
+<h3>Curl-free method</h3>
+      </section>
+      <section data-nimib-slide-number="40" >
+      <h3>Surface normals and potentials</h3>
+<ul>
+<li>If a surface is a level-set to a function, the normals will be parallel to the gradient.</li>
+<li>If a scalar-function has a gradient, the function is a potential.</li>
+<li>All gradients can be shown to be curl free.</li>
+</ul>
+      </section>
+      <section data-nimib-slide-number="41" >
       <h3>Curl-free RBF interpolation</h3>
 <ul>
 <li>Interpolate curl-free vector fields</li>
-<li>Construct Hessian of a scalar RBF
-$\mathbf{\Phi}(|| \mathbf{x} - \mathbf{x}<em>{center} ||) = -\nabla \nabla^T \phi(|| \mathbf{x} - \mathbf{x}</em>{center} ||)$</li>
+<li>Construct Hessian of a scalar RBF</li>
 </ul>
+<p>$$
+\mathbf{\Phi}(|| \mathbf{x} - \mathbf{x}_{center} ||) = -\nabla \nabla^T \phi(|| \mathbf{x} - \mathbf{x}_{center} ||)
+$$</p>
       </section>
-      <section data-nimib-slide-number="38" >
+      <section data-nimib-slide-number="42" >
       <h3>Curl-free Method</h3>
 <ul>
 <li>
 <p>Derive potential anlytically
-$s(\mathbf{x}) = \sum_{i=1}^N \nabla^T \phi(|| \mathbf{x} - \mathbf{x}_{i} ||)$</p>
+$s(\mathbf{x}) = \sum_{i=1}^N \nabla^T \phi(|| \mathbf{x} - \mathbf{x}_{i} ||) \mathbf{c}$</p>
 </li>
 <li>
 <p>Unique to a constant $C$.</p>
@@ -331,17 +387,17 @@ $s(\mathbf{x}) = \sum_{i=1}^N \nabla^T \phi(|| \mathbf{x} - \mathbf{x}_{i} ||)$<
 </li>
 </ul>
       </section>
-      <section data-nimib-slide-number="39" >
+      <section data-nimib-slide-number="43" >
       <h3>Curl-free PU</h3>
 <ul>
 <li>Blend potential function, not vector field</li>
 <li>Compensate for $C$ in each patch.</li>
 </ul>
       </section>
-      <section data-nimib-slide-number="40" >
+      <section data-nimib-slide-number="44" >
       <img src="raptor_surface.png" style="max-width: 80%; margin: 0px;"/><p style="font-size: 16px; margin: 0px;"></p>
       </section>
-      <section data-nimib-slide-number="41" >
+      <section data-nimib-slide-number="45" >
       <div style="font-size: 30px">
       <h3>Benchmarks</h3>
 <table>
@@ -380,7 +436,7 @@ $s(\mathbf{x}) = \sum_{i=1}^N \nabla^T \phi(|| \mathbf{x} - \mathbf{x}_{i} ||)$<
 </tr></tbody></table>
       </div>
       </section>
-      <section data-nimib-slide-number="42" >
+      <section data-nimib-slide-number="46" >
       <h3>Thank you for listening!</h3>
       </section>
       <script defer>/* Generated by the Nim Compiler v1.6.10 */
@@ -993,13 +1049,13 @@ function addChars_251658415(result_251658417, result_251658417_Idx, x_251658418,
     (result_251658417[result_251658417_Idx].length = (old_251658421 + n_251658420));
     Label1: do {
       var iHEX60gensym4_251658435 = 0;
-      var i_452986611 = 0;
+      var i_452986718 = 0;
       Label2: do {
           Label3: while (true) {
-          if (!(i_452986611 < n_251658420)) break Label3;
-            iHEX60gensym4_251658435 = i_452986611;
+          if (!(i_452986718 < n_251658420)) break Label3;
+            iHEX60gensym4_251658435 = i_452986718;
             result_251658417[result_251658417_Idx][(old_251658421 + iHEX60gensym4_251658435)] = x_251658418.charCodeAt((start_251658419 + iHEX60gensym4_251658435));
-            i_452986611 += 1;
+            i_452986718 += 1;
           }
       } while (false);
     } while (false);
@@ -1070,19 +1126,19 @@ function HEX3DHEX3D_603981860(x_603981862, y_603981863) {
     
     Label1: do {
       var i_603981886 = 0;
-      var colontmp__452986614 = 0;
-      colontmp__452986614 = ((x_603981862).length - 1);
-      var res_452986615 = 0;
+      var colontmp__452986721 = 0;
+      colontmp__452986721 = ((x_603981862).length - 1);
+      var res_452986722 = 0;
       Label2: do {
           Label3: while (true) {
-          if (!(res_452986615 <= colontmp__452986614)) break Label3;
-            i_603981886 = res_452986615;
+          if (!(res_452986722 <= colontmp__452986721)) break Label3;
+            i_603981886 = res_452986722;
             if (!(HEX3DHEX3D_603981843(x_603981862[i_603981886], y_603981863[i_603981886]))) {
             result_603981864 = false;
             break BeforeRet;
             }
             
-            res_452986615 += 1;
+            res_452986722 += 1;
           }
       } while (false);
     } while (false);
@@ -1403,20 +1459,20 @@ function HEX3DHEX3D_603981843(a_603981844, b_603981845) {
         Label14: do {
           var key_603982311 = [];
           var val_603982312 = null;
-          var colontmp__452986599 = ({data: [], counter: 0, first: 0, last: 0});
+          var colontmp__452986706 = ({data: [], counter: 0, first: 0, last: 0});
           var Temporary15 = a_603981844;
           if (ConstSet14[Temporary15.kind]===undefined) { raiseFieldError2(makeNimstrLit("field \'fields\' is not accessible for type \'JsonNodeObj\' using \'kind = "), reprDiscriminant(Temporary15.kind, NTI603979779)); }
-          colontmp__452986599 = nimCopy(colontmp__452986599, Temporary15.fields, NTI603979790);
-          var L_452986601 = len_603981931(colontmp__452986599);
-          if ((0 < colontmp__452986599.counter)) {
-          var h_452986602 = colontmp__452986599.first;
+          colontmp__452986706 = nimCopy(colontmp__452986706, Temporary15.fields, NTI603979790);
+          var L_452986708 = len_603981931(colontmp__452986706);
+          if ((0 < colontmp__452986706.counter)) {
+          var h_452986709 = colontmp__452986706.first;
           Label16: do {
               Label17: while (true) {
-              if (!(0 <= h_452986602)) break Label17;
-                var nxt_452986604 = colontmp__452986599.data[h_452986602].Field1;
-                if (isFilled_704643103(colontmp__452986599.data[h_452986602].Field0)) {
-                key_603982311 = colontmp__452986599.data[h_452986602].Field2;
-                val_603982312 = colontmp__452986599.data[h_452986602].Field3;
+              if (!(0 <= h_452986709)) break Label17;
+                var nxt_452986711 = colontmp__452986706.data[h_452986709].Field1;
+                if (isFilled_704643103(colontmp__452986706.data[h_452986709].Field0)) {
+                key_603982311 = colontmp__452986706.data[h_452986709].Field2;
+                val_603982312 = colontmp__452986706.data[h_452986709].Field3;
                   var Temporary18 = b_603981845;
                   if (ConstSet15[Temporary18.kind]===undefined) { raiseFieldError2(makeNimstrLit("field \'fields\' is not accessible for type \'JsonNodeObj\' using \'kind = "), reprDiscriminant(Temporary18.kind, NTI603979779)); }
                 if (!(hasKey_603982353(Temporary18.fields, key_603982311))) {
@@ -1433,7 +1489,7 @@ function HEX3DHEX3D_603981843(a_603981844, b_603981845) {
                 
                 }
                 
-                h_452986602 = nxt_452986604;
+                h_452986709 = nxt_452986711;
               }
           } while (false);
           }
@@ -1575,15 +1631,15 @@ function substr_33557906(s_33557907, first_33557908, last_33557909) {
     result_33557910 = nimCopy(null, mnewString(L_33557912), NTI33554439);
     Label1: do {
       var i_33557917 = 0;
-      var colontmp__452986627 = 0;
-      colontmp__452986627 = (L_33557912 - 1);
-      var res_452986628 = 0;
+      var colontmp__452986734 = 0;
+      colontmp__452986734 = (L_33557912 - 1);
+      var res_452986735 = 0;
       Label2: do {
           Label3: while (true) {
-          if (!(res_452986628 <= colontmp__452986627)) break Label3;
-            i_33557917 = res_452986628;
+          if (!(res_452986735 <= colontmp__452986734)) break Label3;
+            i_33557917 = res_452986735;
             result_33557910[i_33557917] = s_33557907[(i_33557917 + first_33557911)];
-            res_452986628 += 1;
+            res_452986735 += 1;
           }
       } while (false);
     } while (false);
@@ -1951,12 +2007,12 @@ function collectionToString_603985213(x_603985215, prefix_603985216, separator_6
     var firstElement_603985220 = true;
     Label1: do {
       var value_603985241 = 0;
-      var i_452986632 = 0;
+      var i_452986739 = 0;
       Label2: do {
           Label3: while (true) {
-          if (!(i_452986632 <= 6)) break Label3;
-            if ((x_603985215[i_452986632] != undefined)) {
-            value_603985241 = i_452986632;
+          if (!(i_452986739 <= 6)) break Label3;
+            if ((x_603985215[i_452986739] != undefined)) {
+            value_603985241 = i_452986739;
             if (firstElement_603985220) {
             firstElement_603985220 = false;
             }
@@ -1967,7 +2023,7 @@ function collectionToString_603985213(x_603985215, prefix_603985216, separator_6
             addQuoted_603985245(result_603985219, 0, value_603985241);
             }
             
-            i_452986632 += 1;
+            i_452986739 += 1;
           }
       } while (false);
     } while (false);
@@ -2349,15 +2405,15 @@ function convertObject_603985076(x_603985077) {
       result_603985078 = newJArray_603979909();
       Label1: do {
         var i_603985084 = 0;
-        var colontmp__452986635 = 0;
-        colontmp__452986635 = len_603985073(x_603985077);
-        var i_452986636 = 0;
+        var colontmp__452986742 = 0;
+        colontmp__452986742 = len_603985073(x_603985077);
+        var i_452986743 = 0;
         Label2: do {
             Label3: while (true) {
-            if (!(i_452986636 < colontmp__452986635)) break Label3;
-              i_603985084 = i_452986636;
+            if (!(i_452986743 < colontmp__452986742)) break Label3;
+              i_603985084 = i_452986743;
               add_603980008(result_603985078, convertObject_603985076(x_603985077[i_603985084]));
-              i_452986636 += 1;
+              i_452986743 += 1;
             }
         } while (false);
       } while (false);
@@ -2531,19 +2587,19 @@ function initFromJson_452984924(dst_452984927, jsonNode_452984928, jsonPath_4529
     var originalJsonPathLen_452984944 = (jsonPath_452984929[jsonPath_452984929_Idx]).length;
     Label1: do {
       var i_452984949 = 0;
-      var colontmp__452986642 = 0;
-      colontmp__452986642 = len_603982797(jsonNode_452984928);
-      var i_452986643 = 0;
+      var colontmp__452986749 = 0;
+      colontmp__452986749 = len_603982797(jsonNode_452984928);
+      var i_452986750 = 0;
       Label2: do {
           Label3: while (true) {
-          if (!(i_452986643 < colontmp__452986642)) break Label3;
-            i_452984949 = i_452986643;
+          if (!(i_452986750 < colontmp__452986749)) break Label3;
+            i_452984949 = i_452986750;
             addChar(jsonPath_452984929[jsonPath_452984929_Idx], 91);;
             addInt_251658457(jsonPath_452984929, jsonPath_452984929_Idx, i_452984949);
             addChar(jsonPath_452984929[jsonPath_452984929_Idx], 93);;
             initFromJson_452985003(dst_452984927[i_452984949], HEX5BHEX5D_603982926(jsonNode_452984928, i_452984949), jsonPath_452984929, jsonPath_452984929_Idx);
             (jsonPath_452984929[jsonPath_452984929_Idx].length = originalJsonPathLen_452984944);
-            i_452986643 += 1;
+            i_452986750 += 1;
           }
       } while (false);
     } while (false);
@@ -2590,17 +2646,17 @@ function find_452985193(a_452985196, item_452985197) {
     result_452985198 = 0;
     Label1: do {
       var i_452985202 = 0;
-      var i_452986647 = 0;
+      var i_452986754 = 0;
       Label2: do {
           Label3: while (true) {
-          if (!(i_452986647 < (a_452985196).length)) break Label3;
-            i_452985202 = a_452985196[i_452986647];
+          if (!(i_452986754 < (a_452985196).length)) break Label3;
+            i_452985202 = a_452985196[i_452986754];
             if ((i_452985202 == item_452985197)) {
             break BeforeRet;
             }
             
             result_452985198 += 1;
-            i_452986647 += 1;
+            i_452986754 += 1;
           }
       } while (false);
     } while (false);
@@ -2645,13 +2701,13 @@ function HEX3Aanonymous_452985118() {
           var idx_452985183 = 0;
           var x_452985184 = 0;
           var y_452985185 = 0;
-          var i_452986543 = 0;
+          var i_452986646 = 0;
           Label2: do {
               Label3: while (true) {
               if (!true) break Label3;
-                idx_452985183 = i_452986543;
-                x_452985184 = points_452985068[i_452986543]["Field0"];
-                y_452985185 = points_452985068[i_452986543]["Field1"];
+                idx_452985183 = i_452986646;
+                x_452985184 = points_452985068[i_452986646]["Field0"];
+                y_452985185 = points_452985068[i_452986646]["Field1"];
                 if (contains_452985188(new Int32Array([i_452985145, j_452985146]), idx_452985183)) {
                 p5Inst_452985117.fill("rgb(0,255,0)");
                 }
@@ -2661,11 +2717,11 @@ function HEX3Aanonymous_452985118() {
                 
                 p5Inst_452985117.ellipse(toFloat_1107296262(x_452985184), toFloat_1107296262(y_452985185), 30.0, 30.0);
                 p5Inst_452985117.text(toJSStr(HEX24_318767107((idx_452985183 + 1))), toFloat_1107296262((x_452985184 - 10)), toFloat_1107296262((y_452985185 + 50)));
-                if ((2 <= i_452986543)) {
+                if ((2 <= i_452986646)) {
                 break Label2;
                 }
                 
-                i_452986543 += 1;
+                i_452986646 += 1;
               }
           } while (false);
         } while (false);
@@ -2694,13 +2750,13 @@ function HEX3Aanonymous_452985266() {
           var idx_452985275 = 0;
           var x_452985276 = 0;
           var y_452985277 = 0;
-          var i_452986547 = 0;
+          var i_452986650 = 0;
           Label2: do {
               Label3: while (true) {
               if (!true) break Label3;
-                idx_452985275 = i_452986547;
-                x_452985276 = points_452985249[i_452986547]["Field0"];
-                y_452985277 = points_452985249[i_452986547]["Field1"];
+                idx_452985275 = i_452986650;
+                x_452985276 = points_452985249[i_452986650]["Field0"];
+                y_452985277 = points_452985249[i_452986650]["Field1"];
                 if (contains_452985188(new Int32Array([i_452985267, j_452985268]), idx_452985275)) {
                 p5Inst_452985265.fill("rgb(0,255,0)");
                 }
@@ -2710,11 +2766,11 @@ function HEX3Aanonymous_452985266() {
                 
                 p5Inst_452985265.ellipse(toFloat_1107296262(x_452985276), toFloat_1107296262(y_452985277), 30.0, 30.0);
                 p5Inst_452985265.text(toJSStr(HEX24_318767107((idx_452985275 + 1))), toFloat_1107296262((x_452985276 - 10)), toFloat_1107296262((y_452985277 + 50)));
-                if ((2 <= i_452986547)) {
+                if ((2 <= i_452986650)) {
                 break Label2;
                 }
                 
-                i_452986547 += 1;
+                i_452986650 += 1;
               }
           } while (false);
         } while (false);
@@ -2809,11 +2865,11 @@ function drawArrow_452985321(startX_452985322, startY_452985323, endX_452985324,
 function drawDotCircle_452985332(drawNormals_452985333) {
             Label1: do {
               var angle_452985339 = 0;
-              var res_452986552 = 0;
+              var res_452986655 = 0;
               Label2: do {
                   Label3: while (true) {
-                  if (!(res_452986552 <= 360)) break Label3;
-                    angle_452985339 = res_452986552;
+                  if (!(res_452986655 <= 360)) break Label3;
+                    angle_452985339 = res_452986655;
                     var x_452985347 = (Math.cos(degToRad_452985340(toFloat_1107296262(angle_452985339))) * r_452985315);
                     var y_452985354 = (Math.sin(degToRad_452985340(toFloat_1107296262(angle_452985339))) * r_452985315);
                     if (drawNormals_452985333) {
@@ -2825,7 +2881,7 @@ function drawDotCircle_452985332(drawNormals_452985333) {
                     p5Inst_452985312.stroke(toJSStr(dotColor_452985316));
                     p5Inst_452985312.strokeWeight(toFloat_1107296262(dotWeight_452985317));
                     p5Inst_452985312.point(x_452985347, y_452985354);
-                    res_452986552 += 30;
+                    res_452986655 += 30;
                   }
               } while (false);
             } while (false);
@@ -2996,11 +3052,11 @@ function drawArrow_452985426(startX_452985427, startY_452985428, endX_452985429,
 function drawDotCircle_452985437(drawNormals_452985438) {
             Label1: do {
               var angle_452985444 = 0;
-              var res_452986556 = 0;
+              var res_452986659 = 0;
               Label2: do {
                   Label3: while (true) {
-                  if (!(res_452986556 <= 360)) break Label3;
-                    angle_452985444 = res_452986556;
+                  if (!(res_452986659 <= 360)) break Label3;
+                    angle_452985444 = res_452986659;
                     var x_452985451 = (Math.cos(degToRad_452985340(toFloat_1107296262(angle_452985444))) * r_452985420);
                     var y_452985458 = (Math.sin(degToRad_452985340(toFloat_1107296262(angle_452985444))) * r_452985420);
                     if (drawNormals_452985438) {
@@ -3012,7 +3068,7 @@ function drawDotCircle_452985437(drawNormals_452985438) {
                     p5Inst_452985417.stroke(toJSStr(dotColor_452985421));
                     p5Inst_452985417.strokeWeight(toFloat_1107296262(dotWeight_452985422));
                     p5Inst_452985417.point(x_452985451, y_452985458);
-                    res_452986556 += 30;
+                    res_452986659 += 30;
                   }
               } while (false);
             } while (false);
@@ -3183,11 +3239,11 @@ function drawArrow_452985529(startX_452985530, startY_452985531, endX_452985532,
 function drawDotCircle_452985540(drawNormals_452985541) {
             Label1: do {
               var angle_452985547 = 0;
-              var res_452986560 = 0;
+              var res_452986663 = 0;
               Label2: do {
                   Label3: while (true) {
-                  if (!(res_452986560 <= 360)) break Label3;
-                    angle_452985547 = res_452986560;
+                  if (!(res_452986663 <= 360)) break Label3;
+                    angle_452985547 = res_452986663;
                     var x_452985554 = (Math.cos(degToRad_452985340(toFloat_1107296262(angle_452985547))) * r_452985523);
                     var y_452985561 = (Math.sin(degToRad_452985340(toFloat_1107296262(angle_452985547))) * r_452985523);
                     if (drawNormals_452985541) {
@@ -3199,7 +3255,7 @@ function drawDotCircle_452985540(drawNormals_452985541) {
                     p5Inst_452985520.stroke(toJSStr(dotColor_452985524));
                     p5Inst_452985520.strokeWeight(toFloat_1107296262(dotWeight_452985525));
                     p5Inst_452985520.point(x_452985554, y_452985561);
-                    res_452986560 += 30;
+                    res_452986663 += 30;
                   }
               } while (false);
             } while (false);
@@ -3370,11 +3426,11 @@ function drawArrow_452985632(startX_452985633, startY_452985634, endX_452985635,
 function drawDotCircle_452985643(drawNormals_452985644) {
             Label1: do {
               var angle_452985650 = 0;
-              var res_452986564 = 0;
+              var res_452986667 = 0;
               Label2: do {
                   Label3: while (true) {
-                  if (!(res_452986564 <= 360)) break Label3;
-                    angle_452985650 = res_452986564;
+                  if (!(res_452986667 <= 360)) break Label3;
+                    angle_452985650 = res_452986667;
                     var x_452985657 = (Math.cos(degToRad_452985340(toFloat_1107296262(angle_452985650))) * r_452985626);
                     var y_452985664 = (Math.sin(degToRad_452985340(toFloat_1107296262(angle_452985650))) * r_452985626);
                     if (drawNormals_452985644) {
@@ -3386,7 +3442,7 @@ function drawDotCircle_452985643(drawNormals_452985644) {
                     p5Inst_452985623.stroke(toJSStr(dotColor_452985627));
                     p5Inst_452985623.strokeWeight(toFloat_1107296262(dotWeight_452985628));
                     p5Inst_452985623.point(x_452985657, y_452985664);
-                    res_452986564 += 30;
+                    res_452986667 += 30;
                   }
               } while (false);
             } while (false);
@@ -3557,11 +3613,11 @@ function drawArrow_452985735(startX_452985736, startY_452985737, endX_452985738,
 function drawDotCircle_452985746(drawNormals_452985747) {
             Label1: do {
               var angle_452985753 = 0;
-              var res_452986568 = 0;
+              var res_452986671 = 0;
               Label2: do {
                   Label3: while (true) {
-                  if (!(res_452986568 <= 360)) break Label3;
-                    angle_452985753 = res_452986568;
+                  if (!(res_452986671 <= 360)) break Label3;
+                    angle_452985753 = res_452986671;
                     var x_452985760 = (Math.cos(degToRad_452985340(toFloat_1107296262(angle_452985753))) * r_452985729);
                     var y_452985767 = (Math.sin(degToRad_452985340(toFloat_1107296262(angle_452985753))) * r_452985729);
                     if (drawNormals_452985747) {
@@ -3573,7 +3629,7 @@ function drawDotCircle_452985746(drawNormals_452985747) {
                     p5Inst_452985726.stroke(toJSStr(dotColor_452985730));
                     p5Inst_452985726.strokeWeight(toFloat_1107296262(dotWeight_452985731));
                     p5Inst_452985726.point(x_452985760, y_452985767);
-                    res_452986568 += 30;
+                    res_452986671 += 30;
                   }
               } while (false);
             } while (false);
@@ -3744,11 +3800,11 @@ function drawArrow_452985838(startX_452985839, startY_452985840, endX_452985841,
 function drawDotCircle_452985849(drawNormals_452985850) {
             Label1: do {
               var angle_452985856 = 0;
-              var res_452986572 = 0;
+              var res_452986675 = 0;
               Label2: do {
                   Label3: while (true) {
-                  if (!(res_452986572 <= 360)) break Label3;
-                    angle_452985856 = res_452986572;
+                  if (!(res_452986675 <= 360)) break Label3;
+                    angle_452985856 = res_452986675;
                     var x_452985863 = (Math.cos(degToRad_452985340(toFloat_1107296262(angle_452985856))) * r_452985832);
                     var y_452985870 = (Math.sin(degToRad_452985340(toFloat_1107296262(angle_452985856))) * r_452985832);
                     if (drawNormals_452985850) {
@@ -3760,7 +3816,7 @@ function drawDotCircle_452985849(drawNormals_452985850) {
                     p5Inst_452985829.stroke(toJSStr(dotColor_452985833));
                     p5Inst_452985829.strokeWeight(toFloat_1107296262(dotWeight_452985834));
                     p5Inst_452985829.point(x_452985863, y_452985870);
-                    res_452986572 += 30;
+                    res_452986675 += 30;
                   }
               } while (false);
             } while (false);
@@ -3931,11 +3987,11 @@ function drawArrow_452985941(startX_452985942, startY_452985943, endX_452985944,
 function drawDotCircle_452985952(drawNormals_452985953) {
             Label1: do {
               var angle_452985959 = 0;
-              var res_452986576 = 0;
+              var res_452986679 = 0;
               Label2: do {
                   Label3: while (true) {
-                  if (!(res_452986576 <= 360)) break Label3;
-                    angle_452985959 = res_452986576;
+                  if (!(res_452986679 <= 360)) break Label3;
+                    angle_452985959 = res_452986679;
                     var x_452985966 = (Math.cos(degToRad_452985340(toFloat_1107296262(angle_452985959))) * r_452985935);
                     var y_452985973 = (Math.sin(degToRad_452985340(toFloat_1107296262(angle_452985959))) * r_452985935);
                     if (drawNormals_452985953) {
@@ -3947,7 +4003,7 @@ function drawDotCircle_452985952(drawNormals_452985953) {
                     p5Inst_452985932.stroke(toJSStr(dotColor_452985936));
                     p5Inst_452985932.strokeWeight(toFloat_1107296262(dotWeight_452985937));
                     p5Inst_452985932.point(x_452985966, y_452985973);
-                    res_452986576 += 30;
+                    res_452986679 += 30;
                   }
               } while (false);
             } while (false);
@@ -4118,11 +4174,11 @@ function drawArrow_452986044(startX_452986045, startY_452986046, endX_452986047,
 function drawDotCircle_452986055(drawNormals_452986056) {
             Label1: do {
               var angle_452986062 = 0;
-              var res_452986580 = 0;
+              var res_452986683 = 0;
               Label2: do {
                   Label3: while (true) {
-                  if (!(res_452986580 <= 360)) break Label3;
-                    angle_452986062 = res_452986580;
+                  if (!(res_452986683 <= 360)) break Label3;
+                    angle_452986062 = res_452986683;
                     var x_452986069 = (Math.cos(degToRad_452985340(toFloat_1107296262(angle_452986062))) * r_452986038);
                     var y_452986076 = (Math.sin(degToRad_452985340(toFloat_1107296262(angle_452986062))) * r_452986038);
                     if (drawNormals_452986056) {
@@ -4134,7 +4190,7 @@ function drawDotCircle_452986055(drawNormals_452986056) {
                     p5Inst_452986035.stroke(toJSStr(dotColor_452986039));
                     p5Inst_452986035.strokeWeight(toFloat_1107296262(dotWeight_452986040));
                     p5Inst_452986035.point(x_452986069, y_452986076);
-                    res_452986580 += 30;
+                    res_452986683 += 30;
                   }
               } while (false);
             } while (false);
@@ -4305,11 +4361,11 @@ function drawArrow_452986147(startX_452986148, startY_452986149, endX_452986150,
 function drawDotCircle_452986158(drawNormals_452986159) {
             Label1: do {
               var angle_452986165 = 0;
-              var res_452986584 = 0;
+              var res_452986687 = 0;
               Label2: do {
                   Label3: while (true) {
-                  if (!(res_452986584 <= 360)) break Label3;
-                    angle_452986165 = res_452986584;
+                  if (!(res_452986687 <= 360)) break Label3;
+                    angle_452986165 = res_452986687;
                     var x_452986172 = (Math.cos(degToRad_452985340(toFloat_1107296262(angle_452986165))) * r_452986141);
                     var y_452986179 = (Math.sin(degToRad_452985340(toFloat_1107296262(angle_452986165))) * r_452986141);
                     if (drawNormals_452986159) {
@@ -4321,7 +4377,7 @@ function drawDotCircle_452986158(drawNormals_452986159) {
                     p5Inst_452986138.stroke(toJSStr(dotColor_452986142));
                     p5Inst_452986138.strokeWeight(toFloat_1107296262(dotWeight_452986143));
                     p5Inst_452986138.point(x_452986172, y_452986179);
-                    res_452986584 += 30;
+                    res_452986687 += 30;
                   }
               } while (false);
             } while (false);
@@ -4492,11 +4548,11 @@ function drawArrow_452986250(startX_452986251, startY_452986252, endX_452986253,
 function drawDotCircle_452986261(drawNormals_452986262) {
             Label1: do {
               var angle_452986268 = 0;
-              var res_452986588 = 0;
+              var res_452986691 = 0;
               Label2: do {
                   Label3: while (true) {
-                  if (!(res_452986588 <= 360)) break Label3;
-                    angle_452986268 = res_452986588;
+                  if (!(res_452986691 <= 360)) break Label3;
+                    angle_452986268 = res_452986691;
                     var x_452986275 = (Math.cos(degToRad_452985340(toFloat_1107296262(angle_452986268))) * r_452986244);
                     var y_452986282 = (Math.sin(degToRad_452985340(toFloat_1107296262(angle_452986268))) * r_452986244);
                     if (drawNormals_452986262) {
@@ -4508,7 +4564,7 @@ function drawDotCircle_452986261(drawNormals_452986262) {
                     p5Inst_452986241.stroke(toJSStr(dotColor_452986245));
                     p5Inst_452986241.strokeWeight(toFloat_1107296262(dotWeight_452986246));
                     p5Inst_452986241.point(x_452986275, y_452986282);
-                    res_452986588 += 30;
+                    res_452986691 += 30;
                   }
               } while (false);
             } while (false);
@@ -4679,11 +4735,11 @@ function drawArrow_452986353(startX_452986354, startY_452986355, endX_452986356,
 function drawDotCircle_452986364(drawNormals_452986365) {
             Label1: do {
               var angle_452986371 = 0;
-              var res_452986592 = 0;
+              var res_452986695 = 0;
               Label2: do {
                   Label3: while (true) {
-                  if (!(res_452986592 <= 360)) break Label3;
-                    angle_452986371 = res_452986592;
+                  if (!(res_452986695 <= 360)) break Label3;
+                    angle_452986371 = res_452986695;
                     var x_452986378 = (Math.cos(degToRad_452985340(toFloat_1107296262(angle_452986371))) * r_452986347);
                     var y_452986385 = (Math.sin(degToRad_452985340(toFloat_1107296262(angle_452986371))) * r_452986347);
                     if (drawNormals_452986365) {
@@ -4695,7 +4751,7 @@ function drawDotCircle_452986364(drawNormals_452986365) {
                     p5Inst_452986344.stroke(toJSStr(dotColor_452986348));
                     p5Inst_452986344.strokeWeight(toFloat_1107296262(dotWeight_452986349));
                     p5Inst_452986344.point(x_452986378, y_452986385);
-                    res_452986592 += 30;
+                    res_452986695 += 30;
                   }
               } while (false);
             } while (false);
@@ -4866,11 +4922,11 @@ function drawArrow_452986456(startX_452986457, startY_452986458, endX_452986459,
 function drawDotCircle_452986467(drawNormals_452986468) {
             Label1: do {
               var angle_452986474 = 0;
-              var res_452986596 = 0;
+              var res_452986699 = 0;
               Label2: do {
                   Label3: while (true) {
-                  if (!(res_452986596 <= 360)) break Label3;
-                    angle_452986474 = res_452986596;
+                  if (!(res_452986699 <= 360)) break Label3;
+                    angle_452986474 = res_452986699;
                     var x_452986481 = (Math.cos(degToRad_452985340(toFloat_1107296262(angle_452986474))) * r_452986450);
                     var y_452986488 = (Math.sin(degToRad_452985340(toFloat_1107296262(angle_452986474))) * r_452986450);
                     if (drawNormals_452986468) {
@@ -4882,7 +4938,7 @@ function drawDotCircle_452986467(drawNormals_452986468) {
                     p5Inst_452986447.stroke(toJSStr(dotColor_452986451));
                     p5Inst_452986447.strokeWeight(toFloat_1107296262(dotWeight_452986452));
                     p5Inst_452986447.point(x_452986481, y_452986488);
-                    res_452986596 += 30;
+                    res_452986699 += 30;
                   }
               } while (false);
             } while (false);
@@ -5028,6 +5084,193 @@ function drawCoordinates_452986503(first_452986504, second_452986505) {
 
   
 }
+
+function HEX3Aanonymous_452986549(p5Inst_452986550) {
+    
+function HEX3Aanonymous_452986558() {
+
+function drawArrow_452986559(startX_452986560, startY_452986561, endX_452986562, endY_452986563) {
+    p5Inst_452986550.stroke(toJSStr(arrowColor_452986556));
+    p5Inst_452986550.strokeWeight(toFloat_1107296262(arrowWeight_452986557));
+    p5Inst_452986550.fill(toJSStr(arrowColor_452986556));
+    p5Inst_452986550.line(startX_452986560, startY_452986561, endX_452986562, endY_452986563);
+    p5Inst_452986550.push();
+    var angle_452986568 = Math.atan2((startY_452986561 - endY_452986563), (startX_452986560 - endX_452986562));
+    p5Inst_452986550.translate(endX_452986562, endY_452986563);
+    p5Inst_452986550.angleMode("radians");
+    p5Inst_452986550.rotate((angle_452986568 - 1.5707963267948966));
+    var offset_452986569 = 10;
+    p5Inst_452986550.triangle((toFloat_1107296262(-(offset_452986569)) * 0.5), toFloat_1107296262(offset_452986569), (toFloat_1107296262(offset_452986569) * 0.5), toFloat_1107296262(offset_452986569), 0.0, HEX2F_33557575(-(offset_452986569), 2));
+    p5Inst_452986550.pop();
+
+  
+}
+        
+function drawDotCircle_452986570(drawNormals_452986571) {
+            Label1: do {
+              var angle_452986577 = 0;
+              var res_452986703 = 0;
+              Label2: do {
+                  Label3: while (true) {
+                  if (!(res_452986703 <= 360)) break Label3;
+                    angle_452986577 = res_452986703;
+                    var x_452986584 = (Math.cos(degToRad_452985340(toFloat_1107296262(angle_452986577))) * r_452986553);
+                    var y_452986591 = (Math.sin(degToRad_452985340(toFloat_1107296262(angle_452986577))) * r_452986553);
+                    if (drawNormals_452986571) {
+                    var x2_452986592 = (x_452986584 * 1.3);
+                    var y2_452986593 = (y_452986591 * 1.3);
+                    drawArrow_452986559((x_452986584 + ((Math.cos(degToRad_452985340(toFloat_1107296262(angle_452986577))) * toFloat_1107296262(dotWeight_452986555)) / 2.0)), (y_452986591 + ((Math.sin(degToRad_452985340(toFloat_1107296262(angle_452986577))) * toFloat_1107296262(dotWeight_452986555)) / 2.0)), x2_452986592, y2_452986593);
+                    }
+                    
+                    p5Inst_452986550.stroke(toJSStr(dotColor_452986554));
+                    p5Inst_452986550.strokeWeight(toFloat_1107296262(dotWeight_452986555));
+                    p5Inst_452986550.point(x_452986584, y_452986591);
+                    res_452986703 += 30;
+                  }
+              } while (false);
+            } while (false);
+
+          
+        }
+        
+function drawCoordinates_452986606(first_452986607, second_452986608) {
+            p5Inst_452986550.push();
+            p5Inst_452986550.translate((HEX2F_33557575(-(width_452986551), 2) * 0.8), (HEX2F_33557575(height_452986552, 2) * 0.8));
+            drawArrow_452986559(0.0, 0.0, 50.0, 0.0);
+            drawArrow_452986559(0.0, 0.0, 0.0, -50.0);
+            p5Inst_452986550.fill(255.0);
+            p5Inst_452986550.textSize(32.0);
+            p5Inst_452986550.text(first_452986607, 50.0, 30.0);
+            p5Inst_452986550.text(second_452986608, -30.0, -50.0);
+            p5Inst_452986550.pop();
+
+          
+        }
+
+        if (contains_452985379(HEX2EHEX2E_939524945(2, 4), step_452986542)) {
+        p5Inst_452986550.createCanvas(toFloat_1107296262(width_452986551), toFloat_1107296262(height_452986552), "webgl");
+        }
+        else {
+          p5Inst_452986550.createCanvas(toFloat_1107296262(width_452986551), toFloat_1107296262(height_452986552));
+          p5Inst_452986550.translate(HEX2F_33557575(width_452986551, 2), HEX2F_33557575(height_452986552, 2));
+        }
+        
+        p5Inst_452986550.angleMode("degrees");
+        p5Inst_452986550.background(0.0);
+        if ((step_452986542 == 0)) {
+        drawDotCircle_452986570(false);
+        drawCoordinates_452986606("x", "y");
+        }
+        
+        if ((step_452986542 == 1)) {
+        drawDotCircle_452986570(true);
+        drawCoordinates_452986606("x", "y");
+        }
+        else {
+        if ((step_452986542 == 2)) {
+        p5Inst_452986550.rotateX(60.0);
+        drawDotCircle_452986570(true);
+        }
+        else {
+        if ((step_452986542 == 3)) {
+        var sca_452986622 = 2;
+        p5Inst_452986550.rotateX(60.0);
+        p5Inst_452986550.scale(toFloat_1107296262(sca_452986622));
+        p5Inst_452986550.translate(-(r_452986553), -(r_452986553));
+        drawDotCircle_452986570(true);
+        }
+        else {
+        if ((step_452986542 == 4)) {
+        var sca_452986627 = 3;
+        p5Inst_452986550.rotateX(89.0);
+        p5Inst_452986550.scale(toFloat_1107296262(sca_452986627));
+        p5Inst_452986550.translate(-(r_452986553), -(r_452986553));
+        drawDotCircle_452986570(true);
+        }
+        else {
+        if ((step_452986542 == 5)) {
+        p5Inst_452986550.stroke(toJSStr(dotColor_452986554));
+        p5Inst_452986550.strokeWeight(toFloat_1107296262(dotWeight_452986555));
+        p5Inst_452986550.point(0.0, 0.0);
+        drawArrow_452986559(HEX2F_33557575(dotWeight_452986555, 2), 0.0, r_452986553, 0.0);
+        drawCoordinates_452986606("x", "z");
+        }
+        else {
+        if ((step_452986542 == 6)) {
+        p5Inst_452986550.stroke(toJSStr(dotColor_452986554));
+        p5Inst_452986550.strokeWeight(toFloat_1107296262(dotWeight_452986555));
+        p5Inst_452986550.point(0.0, 0.0);
+        drawArrow_452986559(HEX2F_33557575(dotWeight_452986555, 2), 0.0, r_452986553, 0.0);
+        drawArrow_452986559(r_452986553, 0.0, r_452986553, -(r_452986553));
+        drawCoordinates_452986606("x", "z");
+        }
+        else {
+        if ((step_452986542 == 7)) {
+        p5Inst_452986550.stroke(toJSStr(dotColor_452986554));
+        p5Inst_452986550.strokeWeight(toFloat_1107296262(dotWeight_452986555));
+        p5Inst_452986550.point(0.0, 0.0);
+        p5Inst_452986550.stroke(toJSStr(arrowColor_452986556));
+        p5Inst_452986550.point(r_452986553, -(r_452986553));
+        drawCoordinates_452986606("x", "z");
+        }
+        else {
+        if ((step_452986542 == 8)) {
+        p5Inst_452986550.stroke(toJSStr(dotColor_452986554));
+        p5Inst_452986550.strokeWeight(toFloat_1107296262(dotWeight_452986555));
+        p5Inst_452986550.point(0.0, 0.0);
+        drawArrow_452986559(HEX2F_33557575(-(dotWeight_452986555), 2), 0.0, -(r_452986553), 0.0);
+        p5Inst_452986550.point(r_452986553, -(r_452986553));
+        drawCoordinates_452986606("x", "z");
+        }
+        else {
+        if ((step_452986542 == 9)) {
+        p5Inst_452986550.stroke(toJSStr(dotColor_452986554));
+        p5Inst_452986550.strokeWeight(toFloat_1107296262(dotWeight_452986555));
+        p5Inst_452986550.point(0.0, 0.0);
+        drawArrow_452986559(HEX2F_33557575(-(dotWeight_452986555), 2), 0.0, -(r_452986553), 0.0);
+        drawArrow_452986559(-(r_452986553), 0.0, -(r_452986553), r_452986553);
+        p5Inst_452986550.point(r_452986553, -(r_452986553));
+        drawCoordinates_452986606("x", "z");
+        }
+        else {
+        if ((step_452986542 == 10)) {
+        p5Inst_452986550.stroke(toJSStr(dotColor_452986554));
+        p5Inst_452986550.strokeWeight(toFloat_1107296262(dotWeight_452986555));
+        p5Inst_452986550.point(0.0, 0.0);
+        p5Inst_452986550.stroke(toJSStr(arrowColor_452986556));
+        p5Inst_452986550.point(r_452986553, -(r_452986553));
+        p5Inst_452986550.point(-(r_452986553), r_452986553);
+        drawCoordinates_452986606("x", "z");
+        }
+        else {
+        if ((step_452986542 == 11)) {
+        p5Inst_452986550.stroke(toJSStr(dotColor_452986554));
+        p5Inst_452986550.strokeWeight(toFloat_1107296262(dotWeight_452986555));
+        p5Inst_452986550.point(0.0, 0.0);
+        p5Inst_452986550.stroke(toJSStr(arrowColor_452986556));
+        p5Inst_452986550.point(r_452986553, -(r_452986553));
+        p5Inst_452986550.point(-(r_452986553), r_452986553);
+        p5Inst_452986550.stroke(toJSStr(dotColor_452986554));
+        p5Inst_452986550.strokeWeight(toFloat_1107296262(arrowWeight_452986557));
+        p5Inst_452986550.line(r_452986553, -(r_452986553), -(r_452986553), r_452986553);
+        drawCoordinates_452986606("x", "z");
+        }
+        }}}}}}}}}}
+
+      
+    }
+
+    var width_452986551 = 800;
+    var height_452986552 = 600;
+    var r_452986553 = 120.0;
+    var dotColor_452986554 = makeNimstrLit("green");
+    var dotWeight_452986555 = 10;
+    var arrowColor_452986556 = makeNimstrLit("white");
+    var arrowWeight_452986557 = 5;
+    p5Inst_452986550.setup = HEX3Aanonymous_452986558;
+
+  
+}
 Label1: do {
   var p5instanceId_452984897 = to_452984890(parseJson_603985104(makeNimstrLit("\"p5instance-0\"")));
   var points_452985068 = to_452984900(parseJson_603985104(makeNimstrLit("[{\"x\":120,\"y\":130},{\"x\":200,\"y\":210},{\"x\":300,\"y\":150}]")));
@@ -5062,57 +5305,63 @@ Label5: do {
 } while (false);
 Label6: do {
   var p5instanceId_452985609 = to_452984890(parseJson_603985104(makeNimstrLit("\"p5instance-5\"")));
-  var step_452985615 = to_452985292(parseJson_603985104(makeNimstrLit("3")));
+  var step_452985615 = to_452985292(parseJson_603985104(makeNimstrLit("2")));
   var sHEX60gensym34_452985705 = HEX3Aanonymous_452985622;
   var p5InstHEX60gensym34_452985706 = new p5(sHEX60gensym34_452985705, toJSStr(p5instanceId_452985609));
 } while (false);
 Label7: do {
   var p5instanceId_452985712 = to_452984890(parseJson_603985104(makeNimstrLit("\"p5instance-6\"")));
-  var step_452985718 = to_452985292(parseJson_603985104(makeNimstrLit("4")));
+  var step_452985718 = to_452985292(parseJson_603985104(makeNimstrLit("3")));
   var sHEX60gensym38_452985808 = HEX3Aanonymous_452985725;
   var p5InstHEX60gensym38_452985809 = new p5(sHEX60gensym38_452985808, toJSStr(p5instanceId_452985712));
 } while (false);
 Label8: do {
   var p5instanceId_452985815 = to_452984890(parseJson_603985104(makeNimstrLit("\"p5instance-7\"")));
-  var step_452985821 = to_452985292(parseJson_603985104(makeNimstrLit("5")));
+  var step_452985821 = to_452985292(parseJson_603985104(makeNimstrLit("4")));
   var sHEX60gensym42_452985911 = HEX3Aanonymous_452985828;
   var p5InstHEX60gensym42_452985912 = new p5(sHEX60gensym42_452985911, toJSStr(p5instanceId_452985815));
 } while (false);
 Label9: do {
   var p5instanceId_452985918 = to_452984890(parseJson_603985104(makeNimstrLit("\"p5instance-8\"")));
-  var step_452985924 = to_452985292(parseJson_603985104(makeNimstrLit("6")));
+  var step_452985924 = to_452985292(parseJson_603985104(makeNimstrLit("5")));
   var sHEX60gensym46_452986014 = HEX3Aanonymous_452985931;
   var p5InstHEX60gensym46_452986015 = new p5(sHEX60gensym46_452986014, toJSStr(p5instanceId_452985918));
 } while (false);
 Label10: do {
   var p5instanceId_452986021 = to_452984890(parseJson_603985104(makeNimstrLit("\"p5instance-9\"")));
-  var step_452986027 = to_452985292(parseJson_603985104(makeNimstrLit("7")));
+  var step_452986027 = to_452985292(parseJson_603985104(makeNimstrLit("6")));
   var sHEX60gensym50_452986117 = HEX3Aanonymous_452986034;
   var p5InstHEX60gensym50_452986118 = new p5(sHEX60gensym50_452986117, toJSStr(p5instanceId_452986021));
 } while (false);
 Label11: do {
   var p5instanceId_452986124 = to_452984890(parseJson_603985104(makeNimstrLit("\"p5instance-10\"")));
-  var step_452986130 = to_452985292(parseJson_603985104(makeNimstrLit("8")));
+  var step_452986130 = to_452985292(parseJson_603985104(makeNimstrLit("7")));
   var sHEX60gensym54_452986220 = HEX3Aanonymous_452986137;
   var p5InstHEX60gensym54_452986221 = new p5(sHEX60gensym54_452986220, toJSStr(p5instanceId_452986124));
 } while (false);
 Label12: do {
   var p5instanceId_452986227 = to_452984890(parseJson_603985104(makeNimstrLit("\"p5instance-11\"")));
-  var step_452986233 = to_452985292(parseJson_603985104(makeNimstrLit("9")));
+  var step_452986233 = to_452985292(parseJson_603985104(makeNimstrLit("8")));
   var sHEX60gensym58_452986323 = HEX3Aanonymous_452986240;
   var p5InstHEX60gensym58_452986324 = new p5(sHEX60gensym58_452986323, toJSStr(p5instanceId_452986227));
 } while (false);
 Label13: do {
   var p5instanceId_452986330 = to_452984890(parseJson_603985104(makeNimstrLit("\"p5instance-12\"")));
-  var step_452986336 = to_452985292(parseJson_603985104(makeNimstrLit("10")));
+  var step_452986336 = to_452985292(parseJson_603985104(makeNimstrLit("9")));
   var sHEX60gensym62_452986426 = HEX3Aanonymous_452986343;
   var p5InstHEX60gensym62_452986427 = new p5(sHEX60gensym62_452986426, toJSStr(p5instanceId_452986330));
 } while (false);
 Label14: do {
   var p5instanceId_452986433 = to_452984890(parseJson_603985104(makeNimstrLit("\"p5instance-13\"")));
-  var step_452986439 = to_452985292(parseJson_603985104(makeNimstrLit("11")));
+  var step_452986439 = to_452985292(parseJson_603985104(makeNimstrLit("10")));
   var sHEX60gensym66_452986529 = HEX3Aanonymous_452986446;
   var p5InstHEX60gensym66_452986530 = new p5(sHEX60gensym66_452986529, toJSStr(p5instanceId_452986433));
+} while (false);
+Label15: do {
+  var p5instanceId_452986536 = to_452984890(parseJson_603985104(makeNimstrLit("\"p5instance-14\"")));
+  var step_452986542 = to_452985292(parseJson_603985104(makeNimstrLit("11")));
+  var sHEX60gensym70_452986632 = HEX3Aanonymous_452986549;
+  var p5InstHEX60gensym70_452986633 = new p5(sHEX60gensym70_452986632, toJSStr(p5instanceId_452986536));
 } while (false);
 </script>
     </div>

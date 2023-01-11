@@ -220,7 +220,7 @@ slide:
 ### Numerical stability
 - Positive definite for unique solution.
 - One such RBF is a gaussian kernel 
-  $\phi(x)=e^{-\epsilon r^2}$
+  $\phi(r)=e^{-\epsilon r^2}$
 """
   nbImage("rbf_guassian.png", size="45%")
 
