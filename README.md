@@ -1,3 +1,3 @@
 # PointCloudReconstruction
 
-Slides: hugogranstrom.github.io/PointCloudReconstruction/presentation/slides.html
+Slides: https://hugogranstrom.github.io/PointCloudReconstruction/presentation/slides.html
